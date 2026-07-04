@@ -6,6 +6,12 @@ import { facts } from "@/data/facts";
 
 type View = "writings" | "principles" | "facts";
 
+const tabLabels: Record<View, string> = {
+  writings: "i write",
+  principles: "i think",
+  facts: "i am",
+};
+
 function formatDate(iso: string | null) {
   if (!iso) return "";
   return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
@@ -100,7 +106,7 @@ export function Home() {
                   onMouseEnter={(e) => { if (view !== tab) e.currentTarget.style.color = "#706F6A"; }}
                   onMouseLeave={(e) => { if (view !== tab) e.currentTarget.style.color = "#C8C7C2"; }}
                 >
-                  {tab}
+                  {tabLabels[tab]}
                 </button>
               </div>
             ))}
