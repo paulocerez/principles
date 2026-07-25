@@ -7,9 +7,9 @@ import { facts } from "@/data/facts";
 type View = "writings" | "principles" | "facts";
 
 const tabLabels: Record<View, string> = {
-  writings: "i write",
-  principles: "i think",
-  facts: "i am",
+  writings: "my writings",
+  principles: "random statements",
+  facts: "personal facts",
 };
 
 function formatDate(iso: string | null) {
