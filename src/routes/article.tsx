@@ -45,18 +45,19 @@ export function Article() {
 
   return (
     <main className="grain relative min-h-screen overflow-hidden">
+      <div className="grid-bg" aria-hidden="true" />
       <Backdrop />
 
       <div className="relative z-10 mx-auto max-w-2xl px-6 py-20 sm:py-28">
         <Link
           to="/"
-          className="rise mb-12 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] transition-colors"
+          className="rise mb-12 inline-flex items-center gap-1.5 font-mono text-[12px] transition-colors"
           style={{ color: "var(--faint)" }}
           onMouseEnter={(e) => (e.currentTarget.style.color = "var(--ink)")}
           onMouseLeave={(e) => (e.currentTarget.style.color = "var(--faint)")}
         >
           <ArrowLeft size={12} />
-          <span>Back</span>
+          <span>cd ..</span>
         </Link>
 
         <article className="rise rise-1">

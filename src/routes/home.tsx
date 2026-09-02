@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { listArticles } from "@/lib/articles";
@@ -9,71 +9,48 @@ import { useBerlinClock } from "@/lib/use-berlin-clock";
 
 type View = "writings" | "principles" | "facts";
 
-const TABS: { id: View; label: string }[] = [
-  { id: "writings", label: "Writing" },
-  { id: "principles", label: "Principles" },
-  { id: "facts", label: "Facts" },
+const TABS: { id: View; label: string; file: string }[] = [
+  { id: "writings", label: "writing", file: "writing.md" },
+  { id: "principles", label: "principles", file: "principles.ts" },
+  { id: "facts", label: "facts", file: "facts.ts" },
 ];
 
 function formatDate(iso: string | null) {
   if (!iso) return "";
-  return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  return new Date(iso).toISOString().slice(0, 10);
 }
 
-function Segmented({ view, onChange }: { view: View; onChange: (v: View) => void }) {
-  const refs = useRef<Record<View, HTMLButtonElement | null>>({
-    writings: null,
-    principles: null,
-    facts: null,
-  });
-  const [pill, setPill] = useState({ left: 0, width: 0 });
+/* ---------- Tiny syntax primitives ---------- */
+const K = ({ children }: { children: React.ReactNode }) => <span style={{ color: "var(--kw)" }}>{children}</span>;
+const S = ({ children }: { children: React.ReactNode }) => <span style={{ color: "var(--str)" }}>{children}</span>;
+const C = ({ children }: { children: React.ReactNode }) => <span style={{ color: "var(--comment)" }}>{children}</span>;
+const P = ({ children }: { children: React.ReactNode }) => <span style={{ color: "var(--punct)" }}>{children}</span>;
 
-  useLayoutEffect(() => {
-    const el = refs.current[view];
-    if (el) setPill({ left: el.offsetLeft, width: el.offsetWidth });
-  }, [view]);
-
+function Window({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div
-      className="relative inline-flex items-center gap-1 rounded-full p-1"
-      role="tablist"
-      aria-label="Sections"
+      className="overflow-hidden rounded-xl"
       style={{
-        background: "rgba(255,255,255,0.55)",
+        background: "rgba(255,255,255,0.72)",
         border: "1px solid var(--hairline)",
-        backdropFilter: "blur(12px)",
-        boxShadow: "0 1px 2px rgba(17,17,18,0.04)",
+        backdropFilter: "blur(14px)",
+        boxShadow: "0 20px 60px rgba(17,17,18,0.10), 0 2px 8px rgba(17,17,18,0.04)",
       }}
     >
-      <span
-        aria-hidden="true"
-        className="absolute rounded-full"
-        style={{
-          left: pill.left,
-          width: pill.width,
-          top: 4,
-          bottom: 4,
-          background: "var(--ink)",
-          transition: "left 380ms cubic-bezier(0.16,1,0.3,1), width 380ms cubic-bezier(0.16,1,0.3,1)",
-        }}
-      />
-      {TABS.map((tab) => {
-        const active = view === tab.id;
-        return (
-          <button
-            key={tab.id}
-            ref={(el) => (refs.current[tab.id] = el)}
-            type="button"
-            role="tab"
-            aria-selected={active}
-            onClick={() => onChange(tab.id)}
-            className="relative z-10 rounded-full px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] transition-colors duration-200"
-            style={{ color: active ? "#fff" : "var(--muted)" }}
-          >
-            {tab.label}
-          </button>
-        );
-      })}
+      <div
+        className="flex items-center gap-2 px-4 py-3"
+        style={{ borderBottom: "1px solid var(--hairline)" }}
+      >
+        <span className="flex gap-1.5">
+          <span className="h-3 w-3 rounded-full" style={{ background: "#ff5f57" }} />
+          <span className="h-3 w-3 rounded-full" style={{ background: "#febc2e" }} />
+          <span className="h-3 w-3 rounded-full" style={{ background: "#28c840" }} />
+        </span>
+        <span className="ml-2 font-mono text-[11px]" style={{ color: "var(--faint)" }}>
+          {title}
+        </span>
+      </div>
+      {children}
     </div>
   );
 }
@@ -87,185 +64,229 @@ export function Home() {
     document.title = "Paulo Ramirez — Builder, Engineer, Designer";
   }, []);
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key === "1") setView("writings");
+      if (e.key === "2") setView("principles");
+      if (e.key === "3") setView("facts");
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   return (
     <main className="grain relative min-h-screen overflow-hidden">
+      <div className="grid-bg" aria-hidden="true" />
       <Backdrop />
 
-      <div className="relative z-10 mx-auto max-w-2xl px-6 py-20 sm:py-28">
-        {/* ---------- Hero ---------- */}
-        <header className="rise flex items-start justify-between gap-6">
-          <div className="min-w-0 flex-1">
-            <div
-              className="mb-4 inline-flex items-center gap-2 rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em]"
-              style={{
-                background: "rgba(255,255,255,0.6)",
-                border: "1px solid var(--hairline)",
-                color: "var(--muted)",
-              }}
-            >
-              <span className="live-dot relative inline-block h-1.5 w-1.5 rounded-full" style={{ background: "var(--warm)" }} />
-              Heads down, building
+      <div className="relative z-10 mx-auto max-w-2xl px-6 py-16 sm:py-24">
+        {/* ---------- Hero window ---------- */}
+        <div className="rise">
+          <Window title="~/paulo-ramirez — zsh">
+            <div className="flex items-start justify-between gap-5 p-5 sm:p-6">
+              <div className="min-w-0 flex-1 font-mono text-[13px] leading-[1.9]">
+                <div style={{ color: "var(--muted)" }}>
+                  <span style={{ color: "var(--str)" }}>$</span> whoami
+                </div>
+                <h1
+                  className="my-1 font-sans text-[34px] leading-[1.0] sm:text-[42px]"
+                  style={{ fontWeight: 800, letterSpacing: "-0.045em", color: "var(--ink)" }}
+                >
+                  Paulo Ramirez
+                </h1>
+
+                <div className="mt-3">
+                  <K>const</K> <span style={{ color: "var(--ink)" }}>role</span> <P>=</P> <P>[</P>
+                  <S>"builder"</S><P>,</P> <S>"engineer"</S><P>,</P> <S>"designer"</S><P>]</P>
+                </div>
+                <div>
+                  <K>const</K> <span style={{ color: "var(--ink)" }}>location</span> <P>=</P> <S>"Berlin, DE"</S>
+                  <span className="ml-2"><C>// {time}</C></span>
+                </div>
+
+                <div className="mt-4" style={{ color: "var(--comment)" }}>
+                  <C>{"// I craft calm, considered software — obsessing over"}</C>
+                  <br />
+                  <C>{"// the details most people never notice."}</C>
+                  <span className="cursor" aria-hidden="true" />
+                </div>
+              </div>
+
+              <div className="hidden shrink-0 sm:block">
+                <div
+                  className="group"
+                  style={{
+                    padding: 4,
+                    borderRadius: 12,
+                    background: "rgba(255,255,255,0.8)",
+                    border: "1px solid var(--hairline)",
+                    boxShadow: "0 8px 24px rgba(17,17,18,0.10)",
+                    transition: "transform 500ms cubic-bezier(0.16,1,0.3,1)",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = "rotate(3deg) scale(1.05)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.transform = "rotate(0deg) scale(1)")}
+                >
+                  <img
+                    src="/three.png"
+                    alt="Paulo Ramirez"
+                    width={88}
+                    height={88}
+                    className="block object-cover"
+                    style={{ borderRadius: 9 }}
+                  />
+                </div>
+              </div>
             </div>
-
-            <h1
-              className="text-[44px] leading-[0.95] sm:text-[58px]"
-              style={{ fontWeight: 800, letterSpacing: "-0.05em" }}
-            >
-              Paulo
-              <br />
-              Ramirez
-            </h1>
-
-            <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.16em]" style={{ color: "var(--faint)" }}>
-              Builder<span className="mx-1.5" style={{ color: "var(--accent)" }}>/</span>
-              Engineer<span className="mx-1.5" style={{ color: "var(--accent)" }}>/</span>
-              Designer
-            </p>
-          </div>
-
-          <div className="shrink-0">
-            <div
-              className="group relative"
-              style={{
-                padding: 5,
-                borderRadius: 20,
-                background: "rgba(255,255,255,0.7)",
-                border: "1px solid var(--hairline)",
-                boxShadow: "0 12px 40px rgba(17,17,18,0.10), 0 2px 8px rgba(17,17,18,0.04)",
-                transition: "transform 500ms cubic-bezier(0.16,1,0.3,1)",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = "rotate(3deg) scale(1.04)")}
-              onMouseLeave={(e) => (e.currentTarget.style.transform = "rotate(0deg) scale(1)")}
-            >
-              <img
-                src="/three.png"
-                alt="Paulo Ramirez"
-                width={104}
-                height={104}
-                className="block object-cover"
-                style={{ borderRadius: 15 }}
-              />
-            </div>
-          </div>
-        </header>
-
-        {/* ---------- Intro ---------- */}
-        <p
-          className="rise rise-1 mt-10 max-w-md text-[17px] leading-[1.6]"
-          style={{ color: "var(--muted)", fontWeight: 500, letterSpacing: "-0.015em" }}
-        >
-          I craft calm, considered software — obsessing over the details most
-          people never notice, so the whole thing simply feels right.
-        </p>
-
-        {/* ---------- Meta strip ---------- */}
-        <div
-          className="rise rise-2 mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.12em]"
-          style={{ color: "var(--faint)" }}
-        >
-          <span className="flex items-center gap-1.5">
-            <span className="inline-block h-1 w-1 rounded-full" style={{ background: "var(--warm)" }} />
-            Berlin, DE
-          </span>
-          <span aria-hidden="true">·</span>
-          <span style={{ color: "var(--muted)" }}>{time}</span>
-          <span aria-hidden="true">·</span>
-          <span>52.52°N 13.40°E</span>
+          </Window>
         </div>
 
-        {/* ---------- Navigation ---------- */}
-        <nav className="rise rise-3 mt-16">
-          <Segmented view={view} onChange={setView} />
+        {/* ---------- Navigation (editor tabs) ---------- */}
+        <nav
+          className="rise rise-2 mt-10 flex flex-wrap items-end gap-1"
+          role="tablist"
+          aria-label="Sections"
+        >
+          {TABS.map((tab, i) => {
+            const active = view === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={active}
+                onClick={() => setView(tab.id)}
+                className="group flex items-center gap-2 rounded-t-lg px-3.5 py-2 font-mono text-[12px] transition-colors"
+                style={{
+                  color: active ? "var(--ink)" : "var(--faint)",
+                  background: active ? "rgba(255,255,255,0.72)" : "transparent",
+                  border: "1px solid",
+                  borderColor: active ? "var(--hairline)" : "transparent",
+                  borderBottom: active ? "1px solid rgba(255,255,255,0.72)" : "1px solid var(--hairline)",
+                  marginBottom: -1,
+                }}
+              >
+                <kbd
+                  className="rounded px-1 text-[10px]"
+                  style={{
+                    background: active ? "var(--accent-soft)" : "rgba(17,17,18,0.05)",
+                    color: active ? "var(--accent)" : "var(--faint)",
+                  }}
+                >
+                  {i + 1}
+                </kbd>
+                {tab.file}
+              </button>
+            );
+          })}
         </nav>
 
-        {/* ---------- Content ---------- */}
-        <section key={view} className="mt-8">
-          {view === "writings" ? (
-            articles.length === 0 ? (
-              <Empty>Nothing published yet — the good stuff is in the oven.</Empty>
-            ) : (
-              <ul className="stagger">
-                {articles.map((article) => {
-                  const inner = (
-                    <>
-                      <div className="flex min-w-0 flex-col gap-1">
+        {/* ---------- Content panel ---------- */}
+        <section
+          key={view}
+          className="rounded-b-xl rounded-tr-xl"
+          style={{
+            background: "rgba(255,255,255,0.72)",
+            border: "1px solid var(--hairline)",
+            backdropFilter: "blur(14px)",
+          }}
+        >
+          <div className="p-4 sm:p-5">
+            {view === "writings" ? (
+              articles.length === 0 ? (
+                <Empty>{"// nothing published yet — the good stuff is in the oven"}</Empty>
+              ) : (
+                <ul className="stagger flex flex-col">
+                  {articles.map((article, idx) => {
+                    const inner = (
+                      <>
                         <span
-                          className="flex items-center gap-1.5 text-[16px]"
-                          style={{ fontWeight: 650, color: "var(--ink)", letterSpacing: "-0.02em" }}
+                          className="w-6 shrink-0 select-none pt-0.5 text-right font-mono text-[11px] tabular-nums"
+                          style={{ color: "var(--punct)" }}
                         >
-                          {article.title}
-                          {article.externalUrl ? (
-                            <ArrowUpRight size={14} className="opacity-40 transition-opacity group-hover:opacity-100" />
-                          ) : null}
+                          {idx + 1}
                         </span>
-                        {article.excerpt ? (
-                          <span className="text-[13.5px] leading-[1.55]" style={{ color: "var(--muted)" }}>
-                            {article.excerpt}
+                        <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                          <span
+                            className="flex items-center gap-1.5 text-[15px]"
+                            style={{ fontWeight: 650, color: "var(--ink)", letterSpacing: "-0.02em" }}
+                          >
+                            {article.title}
+                            {article.externalUrl ? (
+                              <ArrowUpRight size={14} className="opacity-40 transition-opacity group-hover:opacity-100" />
+                            ) : null}
                           </span>
-                        ) : null}
-                      </div>
-                      <span
-                        className="whitespace-nowrap font-mono text-[10.5px] uppercase tracking-[0.1em] sm:pt-1 sm:text-right"
-                        style={{ color: "var(--faint)" }}
-                      >
-                        {formatDate(article.publishedAt)}
-                      </span>
-                    </>
-                  );
-                  const rowClass =
-                    "group relative flex flex-col gap-1 rounded-2xl px-4 py-4 transition-all duration-300 hover:bg-white/70 sm:grid sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-6";
-                  return (
-                    <li key={article._id}>
-                      {article.externalUrl ? (
-                        <a href={article.externalUrl} target="_blank" rel="noopener noreferrer" className={rowClass}>
-                          {inner}
-                        </a>
-                      ) : (
-                        <Link to={`/writing/${article.slug}`} className={rowClass}>
-                          {inner}
-                        </Link>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            )
-          ) : (
-            (() => {
-              const items = view === "principles" ? principles : facts;
-              if (items.length === 0) return <Empty>Nothing here yet.</Empty>;
-              return (
-                <ol className="stagger flex flex-col gap-5">
-                  {items.map((text, i) => (
-                    <li key={i} className="flex gap-4 rounded-2xl px-4 py-3">
-                      <span
-                        className="select-none font-mono text-[11px] tabular-nums"
-                        style={{ color: "var(--accent)", paddingTop: 3 }}
-                      >
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <p className="text-[15.5px] leading-[1.6]" style={{ color: "#33332f", letterSpacing: "-0.012em" }}>
-                        {text}
-                      </p>
-                    </li>
-                  ))}
-                </ol>
-              );
-            })()
-          )}
+                          {article.excerpt ? (
+                            <span className="text-[13px] leading-[1.55]" style={{ color: "var(--muted)" }}>
+                              {article.excerpt}
+                            </span>
+                          ) : null}
+                        </div>
+                        <span
+                          className="shrink-0 whitespace-nowrap pt-0.5 font-mono text-[11px] tabular-nums"
+                          style={{ color: "var(--faint)" }}
+                        >
+                          {formatDate(article.publishedAt)}
+                        </span>
+                      </>
+                    );
+                    const rowClass =
+                      "group flex items-start gap-3 rounded-lg px-3 py-3 transition-colors duration-200 hover:bg-[rgba(91,75,255,0.05)]";
+                    return (
+                      <li key={article._id}>
+                        {article.externalUrl ? (
+                          <a href={article.externalUrl} target="_blank" rel="noopener noreferrer" className={rowClass}>
+                            {inner}
+                          </a>
+                        ) : (
+                          <Link to={`/writing/${article.slug}`} className={rowClass}>
+                            {inner}
+                          </Link>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )
+            ) : (
+              (() => {
+                const items = view === "principles" ? principles : facts;
+                if (items.length === 0) return <Empty>{"// nothing here yet"}</Empty>;
+                return (
+                  <ol className="stagger flex flex-col gap-1">
+                    {items.map((text, i) => (
+                      <li key={i} className="flex items-start gap-3 rounded-lg px-3 py-2.5">
+                        <span
+                          className="shrink-0 select-none pt-0.5 font-mono text-[11px] tabular-nums"
+                          style={{ color: "var(--accent)" }}
+                        >
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <p className="text-[14.5px] leading-[1.6]" style={{ color: "#33332f", letterSpacing: "-0.01em" }}>
+                          {text}
+                        </p>
+                      </li>
+                    ))}
+                  </ol>
+                );
+              })()
+            )}
+          </div>
         </section>
 
         {/* ---------- Footer ---------- */}
         <footer
-          className="rise rise-4 mt-24 flex items-center justify-between border-t pt-6 font-mono text-[10.5px] uppercase tracking-[0.12em]"
-          style={{ borderColor: "var(--hairline)", color: "var(--faint)" }}
+          className="rise rise-4 mt-10 flex items-center justify-between font-mono text-[11px]"
+          style={{ color: "var(--faint)" }}
         >
-          <span>© {new Date().getFullYear()} Paulo Ramirez</span>
-          <span className="flex items-center gap-1.5">
-            Made with
-            <span aria-hidden="true">🎧</span>
-            in Berlin
+          <span>
+            <C>{"// press "}</C>
+            <kbd className="rounded px-1" style={{ background: "rgba(17,17,18,0.05)" }}>1</kbd>
+            <kbd className="ml-0.5 rounded px-1" style={{ background: "rgba(17,17,18,0.05)" }}>2</kbd>
+            <kbd className="ml-0.5 rounded px-1" style={{ background: "rgba(17,17,18,0.05)" }}>3</kbd>
+            <C>{" to switch"}</C>
           </span>
+          <span>© {new Date().getFullYear()}</span>
         </footer>
       </div>
     </main>
@@ -274,7 +295,7 @@ export function Home() {
 
 function Empty({ children }: { children: React.ReactNode }) {
   return (
-    <p className="rise px-4 py-8 text-[14px]" style={{ color: "var(--faint)" }}>
+    <p className="rise px-3 py-6 font-mono text-[13px]" style={{ color: "var(--comment)" }}>
       {children}
     </p>
   );

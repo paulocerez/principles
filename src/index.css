@@ -18,6 +18,13 @@
   --accent-soft: rgba(91, 75, 255, 0.12);
   --warm: #ff7a59;
   --mint: #14b8a6;
+
+  /* Syntax */
+  --kw: #7c5cff;
+  --str: #0e9f6e;
+  --num: #d97706;
+  --comment: #9b9b95;
+  --punct: #b0afab;
 }
 
 @layer base {
@@ -39,6 +46,35 @@
     background: var(--accent-soft);
     color: var(--ink);
   }
+}
+
+/* ---------- Blueprint grid ---------- */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(17, 17, 18, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 17, 18, 0.04) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 40%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 65% at 50% 40%, #000 40%, transparent 100%);
+}
+
+/* ---------- Blinking cursor ---------- */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  transform: translateY(0.14em);
+  background: var(--accent);
+  margin-left: 2px;
+  animation: blink 1.1s steps(1) infinite;
 }
 
 /* ---------- Grain overlay ---------- */
@@ -65,8 +101,8 @@
 .blob {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(60px);
-  opacity: 0.5;
+  filter: blur(70px);
+  opacity: 0.28;
   will-change: transform;
 }
 
