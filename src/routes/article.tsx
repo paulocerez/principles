@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { getArticle } from "@/lib/articles";
 import { ArticleBody } from "@/components/article-body";
+import { Backdrop } from "@/components/backdrop";
 import { urlForImage } from "@/lib/sanity";
 
 function formatDate(iso: string | null) {
@@ -20,11 +21,18 @@ export function Article() {
 
   if (!article) {
     return (
-      <main className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "#FAF8F4" }}>
-        <div className="text-center">
-          <p style={{ fontSize: "14px", color: "#706F6A" }}>Article not found.</p>
-          <Link to="/" className="mt-3 inline-block text-[12px] text-[#1A1A18] underline">
-            Back
+      <main className="grain relative flex min-h-screen items-center justify-center overflow-hidden">
+        <Backdrop />
+        <div className="relative z-10 text-center">
+          <p className="text-[14px]" style={{ color: "var(--muted)" }}>
+            This piece wandered off.
+          </p>
+          <Link
+            to="/"
+            className="mt-3 inline-block font-mono text-[11px] uppercase tracking-[0.12em] underline underline-offset-4"
+            style={{ color: "var(--ink)" }}
+          >
+            Back home
           </Link>
         </div>
       </main>
@@ -36,45 +44,47 @@ export function Article() {
     : null;
 
   return (
-    <main
-      className="relative min-h-screen"
-      style={{
-        backgroundColor: "#FAF8F4",
-        backgroundImage: "radial-gradient(circle, rgba(175,162,142,0.35) 1px, transparent 1px)",
-        backgroundSize: "22px 22px",
-      }}
-    >
-      <div className="relative mx-auto max-w-2xl px-6 py-20 sm:py-28">
+    <main className="grain relative min-h-screen overflow-hidden">
+      <Backdrop />
+
+      <div className="relative z-10 mx-auto max-w-2xl px-6 py-20 sm:py-28">
         <Link
           to="/"
-          className="animate-fade-up flex items-center gap-1.5 text-[12px] font-medium tracking-tight text-[#A8A7A2] hover:text-[#1A1A18] transition-colors mb-10"
+          className="rise mb-12 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] transition-colors"
+          style={{ color: "var(--faint)" }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--ink)")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--faint)")}
         >
           <ArrowLeft size={12} />
           <span>Back</span>
         </Link>
 
-        <article className="animate-fade-up-delay-1">
+        <article className="rise rise-1">
           <header>
-            <h1 style={{ fontWeight: 800, fontSize: "36px", letterSpacing: "-0.035em", color: "#1A1A18", lineHeight: 1.1 }}>
-              {article.title}
-            </h1>
             {article.publishedAt ? (
-              <p className="mt-2" style={{ fontSize: "12px", color: "#B0AFA9", letterSpacing: "-0.01em" }}>
+              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.14em]" style={{ color: "var(--accent)" }}>
                 {formatDate(article.publishedAt)}
               </p>
             ) : null}
+            <h1
+              className="text-[34px] leading-[1.05] sm:text-[42px]"
+              style={{ fontWeight: 800, letterSpacing: "-0.04em", color: "var(--ink)" }}
+            >
+              {article.title}
+            </h1>
           </header>
 
           {coverUrl ? (
             <img
               src={coverUrl}
               alt={article.coverImage?.alt ?? article.title}
-              className="mt-8 w-full rounded-lg"
+              className="mt-10 w-full rounded-2xl"
+              style={{ border: "1px solid var(--hairline)", boxShadow: "0 12px 40px rgba(17,17,18,0.08)" }}
               loading="lazy"
             />
           ) : null}
 
-          <div className="mt-8">
+          <div className="mt-10">
             <ArticleBody value={article.body} />
           </div>
         </article>
