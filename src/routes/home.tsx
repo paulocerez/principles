@@ -103,8 +103,8 @@ export function Home() {
                 color: "var(--muted)",
               }}
             >
-              <span className="live-dot relative inline-block h-1.5 w-1.5 rounded-full" style={{ background: "var(--mint)" }} />
-              Available for the right thing
+              <span className="live-dot relative inline-block h-1.5 w-1.5 rounded-full" style={{ background: "var(--warm)" }} />
+              Heads down, building
             </div>
 
             <h1

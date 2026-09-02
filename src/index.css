@@ -155,7 +155,7 @@
   position: absolute;
   inset: 0;
   border-radius: 9999px;
-  background: var(--mint);
+  background: var(--warm);
   animation: pulse-ring 2.4s ease-out infinite;
 }
 
