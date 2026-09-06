@@ -2,5 +2,5 @@
 // Each string renders as its own paragraph. Keep them short.
 
 export const facts: string[] = [
-    "Soon you will see something here, I promise",
+    "I'm a huge fan of battlerap, especially DLTLLY.",
 ];
