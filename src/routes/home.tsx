@@ -106,9 +106,7 @@ export function Home() {
                 </div>
 
                 <div className="mt-4" style={{ color: "var(--comment)" }}>
-                  <C>{"// I craft calm, considered software — obsessing over"}</C>
-                  <br />
-                  <C>{"// the details most people never notice."}</C>
+                  <C>{"// I like to build stuff"}</C>
                   <span className="cursor" aria-hidden="true" />
                 </div>
               </div>
