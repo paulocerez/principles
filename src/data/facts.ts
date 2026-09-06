@@ -8,4 +8,5 @@ export const facts: string[] = [
     "I'm half Cuban.",
     "I won a Chinese martial arts competition at age 11.",
     "I'm a lifelong FC Barcelona fan — Messi is my GOAT.",
+    "I have a tradition of getting a tattoo in every foreign city I travel to.",
 ];
