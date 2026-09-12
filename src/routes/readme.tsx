@@ -48,6 +48,11 @@ export function Readme() {
         Optimizing for experiences.
       </p>
 
+      <p className="mt-4 text-[17px] leading-[1.7]" style={{ color: "var(--prose)" }}>
+        Currently Co-Founder &amp; CTO of <strong>Vetpal</strong>, the operating system for
+        vet clinics and practices.
+      </p>
+
       <h2 className="mt-12 text-[22px]" style={{ fontWeight: 400, letterSpacing: "-0.02em" }}>
         Explore:
       </h2>
