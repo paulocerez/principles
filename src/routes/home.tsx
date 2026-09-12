@@ -4,7 +4,6 @@ import { ArrowUpRight } from "lucide-react";
 import { listArticles } from "@/lib/articles";
 import { principles } from "@/data/principles";
 import { facts } from "@/data/facts";
-import { Backdrop } from "@/components/backdrop";
 import { useBerlinClock } from "@/lib/use-berlin-clock";
 
 type View = "writings" | "principles" | "facts";
@@ -78,7 +77,6 @@ export function Home() {
   return (
     <main className="grain relative min-h-screen overflow-hidden">
       <div className="grid-bg" aria-hidden="true" />
-      <Backdrop />
 
       <div className="relative z-10 mx-auto max-w-2xl px-6 py-16 sm:py-24">
         {/* ---------- Hero window ---------- */}

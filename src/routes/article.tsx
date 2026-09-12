@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { getArticle } from "@/lib/articles";
 import { ArticleBody } from "@/components/article-body";
-import { Backdrop } from "@/components/backdrop";
 import { urlForImage } from "@/lib/sanity";
 
 function formatDate(iso: string | null) {
@@ -22,7 +21,6 @@ export function Article() {
   if (!article) {
     return (
       <main className="grain relative flex min-h-screen items-center justify-center overflow-hidden">
-        <Backdrop />
         <div className="relative z-10 text-center">
           <p className="text-[14px]" style={{ color: "var(--muted)" }}>
             This piece wandered off.
@@ -46,7 +44,6 @@ export function Article() {
   return (
     <main className="grain relative min-h-screen overflow-hidden">
       <div className="grid-bg" aria-hidden="true" />
-      <Backdrop />
 
       <div className="relative z-10 mx-auto max-w-2xl px-6 py-20 sm:py-28">
         <Link
