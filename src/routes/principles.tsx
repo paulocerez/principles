@@ -3,7 +3,7 @@ import { principles } from "@/data/principles";
 
 export function Principles() {
   useEffect(() => {
-    document.title = "principles.md — Paulo Ramirez";
+    document.title = "principles.md - Paulo Ramirez";
   }, []);
 
   return (

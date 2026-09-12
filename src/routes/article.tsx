@@ -14,7 +14,7 @@ export function Article() {
   const article = slug ? getArticle(slug) : undefined;
 
   useEffect(() => {
-    document.title = article ? `${article.title} — Paulo Ramirez` : "Not Found — Paulo Ramirez";
+    document.title = article ? `${article.title} - Paulo Ramirez` : "Not Found - Paulo Ramirez";
   }, [article]);
 
   if (!article) {

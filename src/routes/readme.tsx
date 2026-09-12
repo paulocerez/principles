@@ -7,23 +7,46 @@ export function Readme() {
   const time = useBerlinClock();
 
   useEffect(() => {
-    document.title = "Paulo Ramirez — Builder, Engineer, Designer";
+    document.title = "Paulo Ramirez - Builder, Engineer, Designer";
   }, []);
 
   return (
     <article>
+      <div
+        className="mb-8 inline-block"
+        style={{
+          padding: 4,
+          borderRadius: 14,
+          background: "var(--panel-solid)",
+          border: "1px solid var(--hairline)",
+          boxShadow: "var(--shadow-img)",
+          transition: "transform 500ms cubic-bezier(0.16,1,0.3,1)",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.transform = "rotate(3deg) scale(1.05)")}
+        onMouseLeave={(e) => (e.currentTarget.style.transform = "rotate(0deg) scale(1)")}
+      >
+        <img
+          src="/three.png"
+          alt="Paulo Ramirez"
+          width={96}
+          height={96}
+          className="block object-cover"
+          style={{ borderRadius: 10 }}
+        />
+      </div>
+
       <h1 className="text-[40px] leading-[1.05]" style={{ fontWeight: 500, letterSpacing: "-0.03em" }}>
         Paulo Ramirez
       </h1>
 
       <p className="mt-6 text-[17px] leading-[1.7]" style={{ color: "var(--prose)" }}>
         Builder, engineer, and designer crafting calm, considered software in{" "}
-        <strong>Berlin</strong>. I like to make things that feel obvious in hindsight —
+        <strong>Berlin</strong>. I like to make things that feel obvious in hindsight,
         and I care as much about how they feel as what they do.
       </p>
 
       <p className="mt-4 font-mono text-[13px]" style={{ color: "var(--faint)" }}>
-        Berlin, DE — {time}
+        Berlin, DE · {time}
       </p>
 
       <h2 className="mt-12 text-[22px]" style={{ fontWeight: 500, letterSpacing: "-0.02em" }}>
@@ -34,13 +57,13 @@ export function Readme() {
           <Link to="/principles" className="underline underline-offset-4" style={{ color: "var(--accent)" }}>
             principles.md
           </Link>{" "}
-          — the ideas I try to operate by.
+          : the ideas I try to operate by.
         </li>
         <li>
           <Link to="/facts" className="underline underline-offset-4" style={{ color: "var(--accent)" }}>
             facts.md
           </Link>{" "}
-          — a few things that make me, me.
+          : a few things that make me, me.
         </li>
       </ul>
 

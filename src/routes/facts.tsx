@@ -3,7 +3,7 @@ import { facts } from "@/data/facts";
 
 export function Facts() {
   useEffect(() => {
-    document.title = "facts.md — Paulo Ramirez";
+    document.title = "facts.md - Paulo Ramirez";
   }, []);
 
   return (
@@ -19,7 +19,7 @@ export function Facts() {
         {facts.map((text, i) => (
           <li key={i} className="flex items-start gap-4">
             <span className="shrink-0 select-none pt-1.5 font-mono text-[12px]" style={{ color: "var(--accent)" }}>
-              —
+              •
             </span>
             <p className="text-[16px] leading-[1.65]" style={{ color: "var(--prose)" }}>
               {text}
