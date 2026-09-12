@@ -5,9 +5,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"IBM Plex Serif"', "Georgia", "serif"],
-        bricolage: ['"IBM Plex Serif"', "Georgia", "serif"],
-        serif: ['"IBM Plex Serif"', "Georgia", "serif"],
+        sans: ['"Bodoni Moda Variable"', "Georgia", "serif"],
+        bricolage: ['"Bodoni Moda Variable"', "Georgia", "serif"],
+        serif: ['"Bodoni Moda Variable"', "Georgia", "serif"],
         mono: [
           "ui-monospace",
           "SFMono-Regular",

@@ -8,7 +8,7 @@ export function Facts() {
 
   return (
     <article>
-      <h1 className="text-[34px] leading-[1.1]" style={{ fontWeight: 600, letterSpacing: "-0.03em" }}>
+      <h1 className="text-[34px] leading-[1.1]" style={{ fontWeight: 500, letterSpacing: "-0.03em" }}>
         Facts
       </h1>
       <p className="mt-4 text-[15.5px] leading-[1.7]" style={{ color: "var(--muted)" }}>
