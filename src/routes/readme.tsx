@@ -35,7 +35,7 @@ export function Readme() {
         />
       </div>
 
-      <h1 className="text-[40px] leading-[1.05]" style={{ fontWeight: 500, letterSpacing: "-0.03em" }}>
+      <h1 className="text-[40px] leading-[1.05]" style={{ fontWeight: 400, letterSpacing: "-0.03em" }}>
         Paulo Ramirez
       </h1>
 
@@ -49,7 +49,7 @@ export function Readme() {
         Berlin, DE · {time}
       </p>
 
-      <h2 className="mt-12 text-[22px]" style={{ fontWeight: 500, letterSpacing: "-0.02em" }}>
+      <h2 className="mt-12 text-[22px]" style={{ fontWeight: 400, letterSpacing: "-0.02em" }}>
         Explore:
       </h2>
       <ul className="mt-4 flex flex-col gap-2 text-[15.5px]" style={{ color: "var(--prose)" }}>

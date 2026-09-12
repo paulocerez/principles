@@ -13,7 +13,7 @@
     "studio:deploy": "sanity deploy"
   },
   "dependencies": {
-    "@fontsource-variable/bodoni-moda": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
     "@portabletext/react": "^3.2.0",
     "@sanity/client": "^6.22.4",
     "@sanity/image-url": "^1.1.0",

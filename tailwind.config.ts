@@ -5,9 +5,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Bodoni Moda Variable"', "Georgia", "serif"],
-        bricolage: ['"Bodoni Moda Variable"', "Georgia", "serif"],
-        serif: ['"Bodoni Moda Variable"', "Georgia", "serif"],
+        sans: ['"Instrument Serif"', "Georgia", "serif"],
+        bricolage: ['"Instrument Serif"', "Georgia", "serif"],
+        serif: ['"Instrument Serif"', "Georgia", "serif"],
         mono: [
           "ui-monospace",
           "SFMono-Regular",
