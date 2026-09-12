@@ -66,7 +66,7 @@ export function Article() {
             ) : null}
             <h1
               className="text-[34px] leading-[1.05] sm:text-[42px]"
-              style={{ fontWeight: 800, letterSpacing: "-0.04em", color: "var(--ink)" }}
+              style={{ fontWeight: 600, letterSpacing: "-0.04em", color: "var(--ink)" }}
             >
               {article.title}
             </h1>

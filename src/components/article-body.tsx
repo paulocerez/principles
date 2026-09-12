@@ -18,10 +18,10 @@ const components: PortableTextComponents = {
   },
   block: {
     h2: ({ children }) => (
-      <h2 className="mt-12 mb-3 text-[22px] font-bold tracking-[-0.03em] text-ink">{children}</h2>
+      <h2 className="mt-12 mb-3 text-[22px] font-semibold tracking-[-0.03em] text-ink">{children}</h2>
     ),
     h3: ({ children }) => (
-      <h3 className="mt-9 mb-2 text-[17px] font-semibold tracking-[-0.02em] text-ink">{children}</h3>
+      <h3 className="mt-9 mb-2 text-[17px] font-medium tracking-[-0.02em] text-ink">{children}</h3>
     ),
     blockquote: ({ children }) => (
       <blockquote

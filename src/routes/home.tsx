@@ -89,7 +89,7 @@ export function Home() {
                 </div>
                 <h1
                   className="my-1 font-sans text-[34px] leading-[1.0] sm:text-[42px]"
-                  style={{ fontWeight: 800, letterSpacing: "-0.045em", color: "var(--ink)" }}
+                  style={{ fontWeight: 600, letterSpacing: "-0.045em", color: "var(--ink)" }}
                 >
                   Paulo Ramirez
                 </h1>
@@ -205,7 +205,7 @@ export function Home() {
                         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                           <span
                             className="flex items-center gap-1.5 text-[15px]"
-                            style={{ fontWeight: 650, color: "var(--ink)", letterSpacing: "-0.02em" }}
+                            style={{ fontWeight: 500, color: "var(--ink)", letterSpacing: "-0.02em" }}
                           >
                             {article.title}
                             {article.externalUrl ? (
