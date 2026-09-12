@@ -9,6 +9,7 @@ import { Article } from "./routes/article";
 import { people } from "./data/people";
 import { books } from "./data/books";
 import { products } from "./data/products";
+import { countries } from "./data/countries";
 
 const Studio = lazy(() => import("./routes/studio"));
 
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
       { path: "people", element: <ListPage file="people.md" title="People" subtitle="People I admire or draw inspiration from." items={people} /> },
       { path: "books", element: <ListPage file="books.md" title="Books" subtitle="Books that shaped how I think." items={books} /> },
       { path: "products", element: <ListPage file="products.md" title="Products" subtitle="Products I love using." items={products} /> },
+      { path: "countries", element: <ListPage file="countries.md" title="Countries" subtitle="Countries I've been to." items={countries} /> },
       { path: "writing/:slug", element: <Article /> },
     ],
   },

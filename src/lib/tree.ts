@@ -37,6 +37,7 @@ export function buildTree(): Tree {
         { name: "people.md", to: "/people" },
         { name: "books.md", to: "/books" },
         { name: "products.md", to: "/products" },
+        { name: "countries.md", to: "/countries" },
       ] },
     ],
   };
