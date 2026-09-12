@@ -1,8 +1,9 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { ChevronDown, Moon, Sun, X } from "lucide-react";
-import { buildTree, findFileName, type TreeFile } from "@/lib/tree";
+import { buildTree, findFileName, type Tree, type TreeFile } from "@/lib/tree";
 import { useTheme } from "@/lib/use-theme";
+import { useTabs } from "@/lib/use-tabs";
 
 function FileLink({ file }: { file: TreeFile }) {
   const className = "block truncate rounded px-2 py-1 font-mono text-[12.5px] transition-colors";
@@ -39,10 +40,12 @@ function FileLink({ file }: { file: TreeFile }) {
 
 export function Layout() {
   const location = useLocation();
-  const tree = useMemo(() => buildTree(), []);
+  const tree = useMemo<Tree>(() => buildTree(), []);
   const activeFile = findFileName(tree, location.pathname);
   const { theme, toggle } = useTheme();
   const isDark = theme === "dark";
+  const nameFor = useCallback((path: string) => findFileName(tree, path), [tree]);
+  const { tabs, activePath, closeTab } = useTabs(nameFor);
 
   return (
     <div className="flex min-h-screen flex-col sm:flex-row" style={{ background: "var(--bg)", color: "var(--ink)" }}>
@@ -94,22 +97,43 @@ export function Layout() {
       {/* ---------- Main ---------- */}
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Tab bar */}
-        <div className="flex items-center gap-1 px-4 pt-3" style={{ borderBottom: "1px solid var(--hairline)" }}>
-          <div
-            className="flex items-center gap-2 rounded-t-lg px-3 py-2 font-mono text-[12px]"
-            style={{
-              background: "var(--panel-translucent)",
-              border: "1px solid var(--hairline)",
-              borderBottom: "1px solid var(--bg)",
-              marginBottom: -1,
-              color: "var(--ink)",
-            }}
-          >
-            {activeFile}
-            <Link to="/" aria-label="Close tab" style={{ color: "var(--faint)" }}>
-              <X size={13} />
-            </Link>
-          </div>
+        <div
+          className="flex items-center gap-1 overflow-x-auto px-4 pt-3"
+          style={{ borderBottom: "1px solid var(--hairline)" }}
+        >
+          {tabs.map((tab) => {
+            const active = tab.path === activePath;
+            return (
+              <div
+                key={tab.path}
+                className="group flex shrink-0 items-center gap-2 rounded-t-lg py-2 pl-3 pr-2 font-mono text-[12px]"
+                style={{
+                  background: active ? "var(--panel-translucent)" : "transparent",
+                  border: active ? "1px solid var(--hairline)" : "1px solid transparent",
+                  borderBottom: active ? "1px solid var(--bg)" : "1px solid transparent",
+                  marginBottom: -1,
+                  color: active ? "var(--ink)" : "var(--faint)",
+                }}
+              >
+                <Link
+                  to={tab.path}
+                  className="transition-colors"
+                  style={{ color: "inherit" }}
+                >
+                  {tab.name}
+                </Link>
+                <button
+                  type="button"
+                  aria-label={`Close ${tab.name}`}
+                  onClick={() => closeTab(tab.path)}
+                  className="rounded p-0.5 opacity-50 transition-opacity hover:opacity-100"
+                  style={{ color: "var(--faint)" }}
+                >
+                  <X size={13} />
+                </button>
+              </div>
+            );
+          })}
         </div>
 
         {/* Content */}
