@@ -33,6 +33,11 @@ export function buildTree(): Tree {
         { name: "principles.md", to: "/principles" },
         { name: "facts.md", to: "/facts" },
       ] },
+      { name: "collections", files: [
+        { name: "people.md", to: "/people" },
+        { name: "books.md", to: "/books" },
+        { name: "products.md", to: "/products" },
+      ] },
     ],
   };
 }
