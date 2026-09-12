@@ -9,4 +9,5 @@ export const products: ListItem[] = [
   { label: "DJI Osmo Pocket 3", image: "/dji.png" },
   { label: "Slack", image: "/slack.png" },
   { label: "Notion", image: "/notion.webp" },
+  { label: "GitHub", image: "/github.png" },
 ];
