@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
       { path: "facts", element: <Facts /> },
       { path: "people", element: <ListPage file="people.md" title="People" subtitle="People I admire or draw inspiration from." items={people} /> },
       { path: "books", element: <ListPage file="books.md" title="Books" subtitle="Books that shaped how I think." items={books} /> },
-      { path: "products", element: <ListPage file="products.md" title="Products" subtitle="Products I love using." items={products} /> },
+      { path: "products", element: <ListPage file="products.md" title="Products" subtitle="Products I love using." items={products} columns={5} /> },
       { path: "countries", element: <Countries /> },
       { path: "countries/:slug", element: <CountryDetail /> },
       { path: "music", element: <ListPage file="music.md" title="Music" subtitle="Music I keep coming back to." items={music} /> },

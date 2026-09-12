@@ -10,9 +10,10 @@ interface ListPageProps {
   title: string;
   subtitle: string;
   items: ListItem[];
+  columns?: number;
 }
 
-export function ListPage({ file, title, subtitle, items }: ListPageProps) {
+export function ListPage({ file, title, subtitle, items, columns = 3 }: ListPageProps) {
   useEffect(() => {
     document.title = `${file} - Paulo Ramirez`;
   }, [file]);
@@ -33,7 +34,7 @@ export function ListPage({ file, title, subtitle, items }: ListPageProps) {
       ) : (
         <div
           className="mt-10 grid gap-x-6 gap-y-10"
-          style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}
+          style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
         >
           {items.map((item, i) => (
             <div key={i} className="flex flex-col gap-3 text-left">
