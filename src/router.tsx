@@ -7,11 +7,11 @@ import { Facts } from "./routes/facts";
 import { ListPage } from "./routes/list-page";
 import { Article } from "./routes/article";
 import { Countries, CountryDetail } from "./routes/countries";
+import { Projects } from "./routes/projects";
 import { people } from "./data/people";
 import { books } from "./data/books";
 import { products } from "./data/products";
 import { music } from "./data/music";
-import { projects } from "./data/projects";
 
 const Studio = lazy(() => import("./routes/studio"));
 
@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
       { path: "countries", element: <Countries /> },
       { path: "countries/:slug", element: <CountryDetail /> },
       { path: "music", element: <ListPage file="music.md" title="Music" subtitle="Music I keep coming back to." items={music} /> },
-      { path: "projects", element: <ListPage file="projects.md" title="Projects" subtitle="Projects I've built." items={projects} /> },
+      { path: "projects", element: <Projects /> },
       { path: "writing/:slug", element: <Article /> },
     ],
   },
