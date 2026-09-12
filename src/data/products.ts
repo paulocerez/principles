@@ -1,11 +1,11 @@
 // Products I love using.
-// Each string renders as its own entry. Keep them short.
+import type { ListItem } from "@/routes/list-page";
 
-export const products: string[] = [
-  "AirPods Pro",
-  "Sony PSP",
-  "Tekken 5",
-  "Pocket battery pack",
-  "DJI Osmo Pocket 3",
-  "Slack",
+export const products: ListItem[] = [
+  { label: "AirPods Pro", image: "/airpods.webp" },
+  { label: "Sony PSP", image: "/psp.png" },
+  { label: "Tekken 5", image: "/tekken.jpg" },
+  { label: "Pocket battery pack", image: "/pocket.webp" },
+  { label: "DJI Osmo Pocket 3", image: "/dji.png" },
+  { label: "Slack", image: "/slack.png" },
 ];

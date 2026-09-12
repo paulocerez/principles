@@ -1,7 +1,7 @@
 // People I admire or draw inspiration from.
-// Each string renders as its own entry. Keep them short.
+import type { ListItem } from "@/routes/list-page";
 
-export const people: string[] = [
-  "Lionel Messi",
-  "My family",
+export const people: ListItem[] = [
+  { label: "Lionel Messi", image: "/messi.jpg" },
+  { label: "My family", image: "/familie.JPG" },
 ];

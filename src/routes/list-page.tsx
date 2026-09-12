@@ -1,10 +1,15 @@
 import { useEffect } from "react";
 
+export interface ListItem {
+  label: string;
+  image?: string;
+}
+
 interface ListPageProps {
   file: string;
   title: string;
   subtitle: string;
-  items: string[];
+  items: ListItem[];
 }
 
 export function ListPage({ file, title, subtitle, items }: ListPageProps) {
@@ -27,13 +32,35 @@ export function ListPage({ file, title, subtitle, items }: ListPageProps) {
         </p>
       ) : (
         <ul className="mt-8 flex flex-col gap-4">
-          {items.map((text, i) => (
-            <li key={i} className="flex items-start gap-4">
-              <span className="shrink-0 select-none pt-1.5 font-mono text-[12px]" style={{ color: "var(--accent)" }}>
-                •
-              </span>
+          {items.map((item, i) => (
+            <li key={i} className="flex items-center gap-4">
+              {item.image ? (
+                <span
+                  className="shrink-0"
+                  style={{
+                    padding: 3,
+                    borderRadius: 10,
+                    background: "var(--panel-solid)",
+                    border: "1px solid var(--hairline)",
+                    boxShadow: "var(--shadow-img)",
+                  }}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.label}
+                    width={48}
+                    height={48}
+                    className="block object-cover"
+                    style={{ borderRadius: 7, width: 48, height: 48 }}
+                  />
+                </span>
+              ) : (
+                <span className="shrink-0 select-none font-mono text-[12px]" style={{ color: "var(--accent)" }}>
+                  •
+                </span>
+              )}
               <p className="text-[16px] leading-[1.65]" style={{ color: "var(--prose)" }}>
-                {text}
+                {item.label}
               </p>
             </li>
           ))}

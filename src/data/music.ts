@@ -1,4 +1,4 @@
 // Music I keep coming back to.
-// Each string renders as its own entry. Keep them short.
+import type { ListItem } from "@/routes/list-page";
 
-export const music: string[] = [];
+export const music: ListItem[] = [];

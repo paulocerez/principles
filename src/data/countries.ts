@@ -1,4 +1,4 @@
 // Countries I've been to.
-// Each string renders as its own entry. Keep them short.
+import type { ListItem } from "@/routes/list-page";
 
-export const countries: string[] = [];
+export const countries: ListItem[] = [];
