@@ -37,9 +37,6 @@ export function ListPage({ file, title, subtitle, items }: ListPageProps) {
         >
           {items.map((item, i) => (
             <div key={i} className="flex flex-col gap-3 text-left">
-              <p className="text-[15px] leading-snug" style={{ color: "var(--prose)" }}>
-                {item.label}
-              </p>
               {item.image && (
                 <span
                   className="block"
@@ -55,10 +52,22 @@ export function ListPage({ file, title, subtitle, items }: ListPageProps) {
                     src={item.image}
                     alt={item.label}
                     className="block w-full object-cover"
-                    style={{ borderRadius: 10 }}
+                    style={{ borderRadius: 10, aspectRatio: "1 / 1" }}
                   />
                 </span>
               )}
+              <p
+                className="text-[15px] leading-snug"
+                style={{
+                  color: "var(--prose)",
+                  display: "-webkit-box",
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                }}
+              >
+                {item.label}
+              </p>
             </div>
           ))}
         </div>
