@@ -15,18 +15,18 @@ export function Facts() {
         A few things that make me, me.
       </p>
 
-      <ul className="mt-8 flex flex-col gap-4">
+      <ol className="mt-8 flex flex-col gap-5">
         {facts.map((text, i) => (
           <li key={i} className="flex items-start gap-4">
-            <span className="shrink-0 select-none pt-1.5 font-mono text-[12px]" style={{ color: "var(--accent)" }}>
-              •
+            <span className="shrink-0 select-none pt-1 font-mono text-[12px] tabular-nums" style={{ color: "var(--accent)" }}>
+              {String(i + 1).padStart(2, "0")}
             </span>
             <p className="text-[16px] leading-[1.65]" style={{ color: "var(--prose)" }}>
               {text}
             </p>
           </li>
         ))}
-      </ul>
+      </ol>
     </article>
   );
 }
