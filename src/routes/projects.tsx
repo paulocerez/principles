@@ -16,34 +16,23 @@ export function Projects() {
         Things I've built or worked on.
       </p>
 
-      <div className="mt-10 flex flex-col gap-4">
+      <div className="mt-10 flex flex-col gap-8">
         {projects.map((p) => (
           <a
             key={p.url}
             href={p.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-start gap-4 rounded-xl p-4 transition-colors"
-            style={{ background: "var(--panel-solid)", border: "1px solid var(--hairline)" }}
+            className="group flex items-start gap-4"
           >
-            <span
-              className="shrink-0"
-              style={{
-                padding: 5,
-                borderRadius: 10,
-                background: "var(--bg)",
-                border: "1px solid var(--hairline)",
-              }}
-            >
-              <img
-                src={p.logo}
-                alt={p.name}
-                width={32}
-                height={32}
-                className="block"
-                style={{ borderRadius: 6, width: 32, height: 32 }}
-              />
-            </span>
+            <img
+              src={p.logo}
+              alt={p.name}
+              width={32}
+              height={32}
+              className="block shrink-0"
+              style={{ width: 32, height: 32 }}
+            />
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
                 <span className="text-[17px]" style={{ color: "var(--ink)" }}>

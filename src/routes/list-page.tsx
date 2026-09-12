@@ -38,23 +38,12 @@ export function ListPage({ file, title, subtitle, items }: ListPageProps) {
           {items.map((item, i) => (
             <div key={i} className="flex flex-col gap-3 text-left">
               {item.image && (
-                <span
-                  className="block"
-                  style={{
-                    padding: 5,
-                    borderRadius: 14,
-                    background: "var(--panel-solid)",
-                    border: "1px solid var(--hairline)",
-                    boxShadow: "var(--shadow-img)",
-                  }}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.label}
-                    className="block w-full object-cover"
-                    style={{ borderRadius: 10, aspectRatio: "1 / 1" }}
-                  />
-                </span>
+                <img
+                  src={item.image}
+                  alt={item.label}
+                  className="block w-full object-contain"
+                  style={{ aspectRatio: "1 / 1" }}
+                />
               )}
               <p
                 className="text-[15px] leading-snug"

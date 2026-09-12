@@ -14,14 +14,7 @@ export function Readme() {
     <article>
       <div
         className="mb-8 inline-block"
-        style={{
-          padding: 4,
-          borderRadius: 14,
-          background: "var(--panel-solid)",
-          border: "1px solid var(--hairline)",
-          boxShadow: "var(--shadow-img)",
-          transition: "transform 500ms cubic-bezier(0.16,1,0.3,1)",
-        }}
+        style={{ transition: "transform 500ms cubic-bezier(0.16,1,0.3,1)" }}
         onMouseEnter={(e) => (e.currentTarget.style.transform = "rotate(3deg) scale(1.05)")}
         onMouseLeave={(e) => (e.currentTarget.style.transform = "rotate(0deg) scale(1)")}
       >
