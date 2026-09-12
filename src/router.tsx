@@ -6,10 +6,10 @@ import { Principles } from "./routes/principles";
 import { Facts } from "./routes/facts";
 import { ListPage } from "./routes/list-page";
 import { Article } from "./routes/article";
+import { Countries, CountryDetail } from "./routes/countries";
 import { people } from "./data/people";
 import { books } from "./data/books";
 import { products } from "./data/products";
-import { countries } from "./data/countries";
 import { music } from "./data/music";
 
 const Studio = lazy(() => import("./routes/studio"));
@@ -34,7 +34,8 @@ export const router = createBrowserRouter([
       { path: "people", element: <ListPage file="people.md" title="People" subtitle="People I admire or draw inspiration from." items={people} /> },
       { path: "books", element: <ListPage file="books.md" title="Books" subtitle="Books that shaped how I think." items={books} /> },
       { path: "products", element: <ListPage file="products.md" title="Products" subtitle="Products I love using." items={products} /> },
-      { path: "countries", element: <ListPage file="countries.md" title="Countries" subtitle="Countries I've been to." items={countries} /> },
+      { path: "countries", element: <Countries /> },
+      { path: "countries/:slug", element: <CountryDetail /> },
       { path: "music", element: <ListPage file="music.md" title="Music" subtitle="Music I keep coming back to." items={music} /> },
       { path: "writing/:slug", element: <Article /> },
     ],

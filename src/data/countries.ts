@@ -1,4 +1,28 @@
-// Countries I've been to.
-import type { ListItem } from "@/routes/list-page";
+// Countries I've been to. Each folder drills into the cities visited.
 
-export const countries: ListItem[] = [];
+export interface Country {
+  name: string;
+  code: string; // ISO 3166-1 alpha-2
+  slug: string;
+  cities: string[];
+}
+
+export const countries: Country[] = [
+  { name: "Germany", code: "DE", slug: "germany", cities: [] },
+  { name: "Spain", code: "ES", slug: "spain", cities: [] },
+  { name: "Italy", code: "IT", slug: "italy", cities: [] },
+  { name: "France", code: "FR", slug: "france", cities: [] },
+  { name: "United Kingdom", code: "GB", slug: "united-kingdom", cities: [] },
+  { name: "Hungary", code: "HU", slug: "hungary", cities: [] },
+  { name: "Romania", code: "RO", slug: "romania", cities: [] },
+  { name: "Austria", code: "AT", slug: "austria", cities: [] },
+  { name: "Poland", code: "PL", slug: "poland", cities: [] },
+  { name: "China", code: "CN", slug: "china", cities: [] },
+  { name: "USA", code: "US", slug: "usa", cities: [] },
+  { name: "Cuba", code: "CU", slug: "cuba", cities: [] },
+  { name: "Greece", code: "GR", slug: "greece", cities: [] },
+];
+
+export function findCountry(slug: string): Country | undefined {
+  return countries.find((c) => c.slug === slug);
+}

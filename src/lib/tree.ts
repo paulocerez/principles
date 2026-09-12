@@ -47,5 +47,8 @@ export function buildTree(): Tree {
 export function findFileName(tree: Tree, pathname: string): string {
   const all = [...tree.root, ...tree.folders.flatMap((f) => f.files)];
   const match = all.find((f) => !f.external && f.to === pathname);
-  return match?.name ?? "README.md";
+  if (match) return match.name;
+  const seg = pathname.split("/").filter(Boolean);
+  if (seg[0] === "countries" && seg[1]) return `${seg[1]}.md`;
+  return "README.md";
 }
