@@ -10,4 +10,5 @@ export const products: ListItem[] = [
   { label: "Slack", image: "/slack.png" },
   { label: "Notion", image: "/notion.webp" },
   { label: "GitHub", image: "/github.png" },
+  { label: "Pioneer DJ DDJ-FLX4", image: "/pioneer.webp" },
 ];
