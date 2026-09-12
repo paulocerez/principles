@@ -45,7 +45,7 @@ export function Readme() {
       </div>
 
       <p className="mt-6 text-[17px] leading-[1.7]" style={{ color: "var(--prose)" }}>
-        Optimizing for experiences.
+        Optimizing for experiences. Still figuring everything out.
       </p>
 
       <p className="mt-4 text-[17px] leading-[1.7]" style={{ color: "var(--prose)" }}>
