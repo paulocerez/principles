@@ -138,7 +138,7 @@ export function Layout() {
 
         {/* Content */}
         <main className="flex-1 overflow-y-auto px-6 py-14 sm:px-10">
-          <div key={location.pathname} className="fade mx-auto max-w-2xl">
+          <div key={location.pathname} className="fade mx-auto max-w-5xl">
             <p className="mb-10 text-center font-mono text-[11px]" style={{ color: "var(--faint)" }}>
               {activeFile}
             </p>
