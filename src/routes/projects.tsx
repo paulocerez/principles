@@ -31,7 +31,7 @@ export function Projects() {
               width={32}
               height={32}
               className="block shrink-0"
-              style={{ width: 32, height: 32 }}
+              style={{ width: 32, height: 32, borderRadius: 7 }}
             />
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
