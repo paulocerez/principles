@@ -35,28 +35,19 @@ export function Readme() {
         />
       </div>
 
-      <h1 className="text-[40px] leading-[1.05]" style={{ fontWeight: 400, letterSpacing: "-0.03em" }}>
-        <span
-          style={{
-            background:
-              "linear-gradient(104deg, rgba(59,130,246,0) 0.5%, rgba(59,130,246,0.35) 2%, rgba(59,130,246,0.35) 96%, rgba(59,130,246,0) 99%)",
-            padding: "0.05em 0.15em",
-            WebkitBoxDecorationBreak: "clone",
-            boxDecorationBreak: "clone",
-          }}
-        >
-          Paulo Ramirez
-        </span>
-      </h1>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+        <h1 className="text-[40px] leading-[1.05]" style={{ fontWeight: 400, letterSpacing: "-0.03em" }}>
+          Paulo Angel Ramirez Cedeños
+        </h1>
+        <p className="font-mono text-[13px]" style={{ color: "var(--faint)" }}>
+          Berlin, DE · {time}
+        </p>
+      </div>
 
       <p className="mt-6 text-[17px] leading-[1.7]" style={{ color: "var(--prose)" }}>
         Builder, engineer, and designer crafting calm, considered software in{" "}
         <strong>Berlin</strong>. I like to make things that feel obvious in hindsight,
         and I care as much about how they feel as what they do.
-      </p>
-
-      <p className="mt-4 font-mono text-[13px]" style={{ color: "var(--faint)" }}>
-        Berlin, DE · {time}
       </p>
 
       <h2 className="mt-12 text-[22px]" style={{ fontWeight: 400, letterSpacing: "-0.02em" }}>
