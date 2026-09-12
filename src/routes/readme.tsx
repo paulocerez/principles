@@ -45,9 +45,7 @@ export function Readme() {
       </div>
 
       <p className="mt-6 text-[17px] leading-[1.7]" style={{ color: "var(--prose)" }}>
-        Builder, engineer, and designer crafting calm, considered software in{" "}
-        <strong>Berlin</strong>. I like to make things that feel obvious in hindsight,
-        and I care as much about how they feel as what they do.
+        Optimizing for experiences.
       </p>
 
       <h2 className="mt-12 text-[22px]" style={{ fontWeight: 400, letterSpacing: "-0.02em" }}>
