@@ -8,4 +8,5 @@ export const products: ListItem[] = [
   { label: "Pocket battery pack", image: "/pocket.webp" },
   { label: "DJI Osmo Pocket 3", image: "/dji.png" },
   { label: "Slack", image: "/slack.png" },
+  { label: "Notion", image: "/notion.webp" },
 ];
