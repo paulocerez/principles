@@ -22,4 +22,11 @@ export const projects: Project[] = [
     description:
       "Did Engineering and Customer Success work. Learned a lot, especially from Seb. Focussed on setting up a b2b cs function from scratch and did lots of things 0 to 1.",
   },
+  {
+    name: "Augustus",
+    url: "https://augustus.com/",
+    logo: "/augustus.png",
+    description:
+      "Did Engineering. Felt like an impostor, was surrounded by some absolute beasts. Built dashboards and backend services for ecommerce and crypto firms.",
+  },
 ];
