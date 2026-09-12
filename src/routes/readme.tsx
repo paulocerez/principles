@@ -49,8 +49,17 @@ export function Readme() {
       </p>
 
       <p className="mt-4 text-[17px] leading-[1.7]" style={{ color: "var(--prose)" }}>
-        Currently Co-Founder &amp; CTO of <strong>Vetpal</strong>, the operating system for
-        vet clinics and practices.
+        Currently Co-Founder &amp; CTO of{" "}
+        <a
+          href="https://www.vetpal.de"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-4"
+          style={{ color: "var(--accent)" }}
+        >
+          <strong>Vetpal</strong>
+        </a>
+        , the operating system for vet clinics and practices.
       </p>
 
       <h2 className="mt-12 text-[22px]" style={{ fontWeight: 400, letterSpacing: "-0.02em" }}>
