@@ -5,8 +5,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Bricolage Grotesque Variable"', "system-ui", "sans-serif"],
-        bricolage: ['"Bricolage Grotesque Variable"', "system-ui", "sans-serif"],
+        sans: ['"Fraunces Variable"', "Georgia", "serif"],
+        bricolage: ['"Fraunces Variable"', "Georgia", "serif"],
+        serif: ['"Fraunces Variable"', "Georgia", "serif"],
         mono: [
           "ui-monospace",
           "SFMono-Regular",
