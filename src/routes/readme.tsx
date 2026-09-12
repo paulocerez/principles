@@ -36,7 +36,17 @@ export function Readme() {
       </div>
 
       <h1 className="text-[40px] leading-[1.05]" style={{ fontWeight: 400, letterSpacing: "-0.03em" }}>
-        Paulo Ramirez
+        <span
+          style={{
+            background:
+              "linear-gradient(104deg, rgba(59,130,246,0) 0.5%, rgba(59,130,246,0.35) 2%, rgba(59,130,246,0.35) 96%, rgba(59,130,246,0) 99%)",
+            padding: "0.05em 0.15em",
+            WebkitBoxDecorationBreak: "clone",
+            boxDecorationBreak: "clone",
+          }}
+        >
+          Paulo Ramirez
+        </span>
       </h1>
 
       <p className="mt-6 text-[17px] leading-[1.7]" style={{ color: "var(--prose)" }}>
