@@ -5,9 +5,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Fraunces Variable"', "Georgia", "serif"],
-        bricolage: ['"Fraunces Variable"', "Georgia", "serif"],
-        serif: ['"Fraunces Variable"', "Georgia", "serif"],
+        sans: ['"IBM Plex Serif"', "Georgia", "serif"],
+        bricolage: ['"IBM Plex Serif"', "Georgia", "serif"],
+        serif: ['"IBM Plex Serif"', "Georgia", "serif"],
         mono: [
           "ui-monospace",
           "SFMono-Regular",
