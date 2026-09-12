@@ -5,6 +5,7 @@ import { listArticles } from "@/lib/articles";
 import { principles } from "@/data/principles";
 import { facts } from "@/data/facts";
 import { useBerlinClock } from "@/lib/use-berlin-clock";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 type View = "writings" | "principles" | "facts";
 
@@ -30,10 +31,10 @@ function Window({ title, children }: { title: string; children: React.ReactNode 
     <div
       className="overflow-hidden rounded-xl"
       style={{
-        background: "rgba(255,255,255,0.72)",
+        background: "var(--panel-translucent)",
         border: "1px solid var(--hairline)",
         backdropFilter: "blur(14px)",
-        boxShadow: "0 20px 60px rgba(17,17,18,0.10), 0 2px 8px rgba(17,17,18,0.04)",
+        boxShadow: "var(--shadow-window)",
       }}
     >
       <div
@@ -77,6 +78,7 @@ export function Home() {
   return (
     <main className="grain relative min-h-screen overflow-hidden">
       <div className="grid-bg" aria-hidden="true" />
+      <ThemeToggle />
 
       <div className="relative z-10 mx-auto max-w-2xl px-6 py-16 sm:py-24">
         {/* ---------- Hero window ---------- */}
@@ -115,9 +117,9 @@ export function Home() {
                   style={{
                     padding: 4,
                     borderRadius: 12,
-                    background: "rgba(255,255,255,0.8)",
+                    background: "var(--panel-solid)",
                     border: "1px solid var(--hairline)",
-                    boxShadow: "0 8px 24px rgba(17,17,18,0.10)",
+                    boxShadow: "var(--shadow-img)",
                     transition: "transform 500ms cubic-bezier(0.16,1,0.3,1)",
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.transform = "rotate(3deg) scale(1.05)")}
@@ -155,17 +157,17 @@ export function Home() {
                 className="group flex items-center gap-2 rounded-t-lg px-3.5 py-2 font-mono text-[12px] transition-colors"
                 style={{
                   color: active ? "var(--ink)" : "var(--faint)",
-                  background: active ? "rgba(255,255,255,0.72)" : "transparent",
+                  background: active ? "var(--panel-translucent)" : "transparent",
                   border: "1px solid",
                   borderColor: active ? "var(--hairline)" : "transparent",
-                  borderBottom: active ? "1px solid rgba(255,255,255,0.72)" : "1px solid var(--hairline)",
+                  borderBottom: active ? "1px solid var(--panel-translucent)" : "1px solid var(--hairline)",
                   marginBottom: -1,
                 }}
               >
                 <kbd
                   className="rounded px-1 text-[10px]"
                   style={{
-                    background: active ? "var(--accent-soft)" : "rgba(17,17,18,0.05)",
+                    background: active ? "var(--accent-soft)" : "var(--kbd-bg)",
                     color: active ? "var(--accent)" : "var(--faint)",
                   }}
                 >
@@ -182,7 +184,7 @@ export function Home() {
           key={view}
           className="rounded-b-xl rounded-tr-xl"
           style={{
-            background: "rgba(255,255,255,0.72)",
+            background: "var(--panel-translucent)",
             border: "1px solid var(--hairline)",
             backdropFilter: "blur(14px)",
           }}
@@ -258,7 +260,7 @@ export function Home() {
                         >
                           {String(i + 1).padStart(2, "0")}
                         </span>
-                        <p className="text-[14.5px] leading-[1.6]" style={{ color: "#33332f", letterSpacing: "-0.01em" }}>
+                        <p className="text-[14.5px] leading-[1.6]" style={{ color: "var(--prose)", letterSpacing: "-0.01em" }}>
                           {text}
                         </p>
                       </li>
@@ -277,9 +279,9 @@ export function Home() {
         >
           <span>
             <C>{"// press "}</C>
-            <kbd className="rounded px-1" style={{ background: "rgba(17,17,18,0.05)" }}>1</kbd>
-            <kbd className="ml-0.5 rounded px-1" style={{ background: "rgba(17,17,18,0.05)" }}>2</kbd>
-            <kbd className="ml-0.5 rounded px-1" style={{ background: "rgba(17,17,18,0.05)" }}>3</kbd>
+            <kbd className="rounded px-1" style={{ background: "var(--kbd-bg)" }}>1</kbd>
+            <kbd className="ml-0.5 rounded px-1" style={{ background: "var(--kbd-bg)" }}>2</kbd>
+            <kbd className="ml-0.5 rounded px-1" style={{ background: "var(--kbd-bg)" }}>3</kbd>
             <C>{" to switch"}</C>
           </span>
           <span>© {new Date().getFullYear()}</span>

@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { getArticle } from "@/lib/articles";
 import { ArticleBody } from "@/components/article-body";
 import { urlForImage } from "@/lib/sanity";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 function formatDate(iso: string | null) {
   if (!iso) return "";
@@ -21,6 +22,7 @@ export function Article() {
   if (!article) {
     return (
       <main className="grain relative flex min-h-screen items-center justify-center overflow-hidden">
+        <ThemeToggle />
         <div className="relative z-10 text-center">
           <p className="text-[14px]" style={{ color: "var(--muted)" }}>
             This piece wandered off.
@@ -44,6 +46,7 @@ export function Article() {
   return (
     <main className="grain relative min-h-screen overflow-hidden">
       <div className="grid-bg" aria-hidden="true" />
+      <ThemeToggle />
 
       <div className="relative z-10 mx-auto max-w-2xl px-6 py-20 sm:py-28">
         <Link
@@ -77,7 +80,7 @@ export function Article() {
               src={coverUrl}
               alt={article.coverImage?.alt ?? article.title}
               className="mt-10 w-full rounded-2xl"
-              style={{ border: "1px solid var(--hairline)", boxShadow: "0 12px 40px rgba(17,17,18,0.08)" }}
+              style={{ border: "1px solid var(--hairline)", boxShadow: "var(--shadow-cover)" }}
               loading="lazy"
             />
           ) : null}

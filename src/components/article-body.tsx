@@ -32,15 +32,15 @@ const components: PortableTextComponents = {
       </blockquote>
     ),
     normal: ({ children }) => (
-      <p className="my-4 text-[15.5px] leading-[1.75]" style={{ color: "#33332f" }}>{children}</p>
+      <p className="my-4 text-[15.5px] leading-[1.75]" style={{ color: "var(--prose)" }}>{children}</p>
     ),
   },
   list: {
     bullet: ({ children }) => (
-      <ul className="my-4 list-disc pl-5 text-[15.5px] leading-[1.7]" style={{ color: "#33332f" }}>{children}</ul>
+      <ul className="my-4 list-disc pl-5 text-[15.5px] leading-[1.7]" style={{ color: "var(--prose)" }}>{children}</ul>
     ),
     number: ({ children }) => (
-      <ol className="my-4 list-decimal pl-5 text-[15.5px] leading-[1.7]" style={{ color: "#33332f" }}>{children}</ol>
+      <ol className="my-4 list-decimal pl-5 text-[15.5px] leading-[1.7]" style={{ color: "var(--prose)" }}>{children}</ol>
     ),
   },
   marks: {

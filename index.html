@@ -7,6 +7,19 @@
     <meta name="theme-color" content="#fbfbfa" />
     <title>Paulo Ramirez — Builder, Engineer, Designer</title>
     <meta name="description" content="Paulo Ramirez — builder, engineer, and designer crafting calm, considered software in Berlin." />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (dark) {
+            document.documentElement.classList.add("dark");
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute("content", "#0e0e10");
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body class="font-bricolage antialiased">
     <div id="root"></div>
