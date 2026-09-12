@@ -31,15 +31,21 @@ export function ListPage({ file, title, subtitle, items }: ListPageProps) {
           {"// nothing here yet, check back soon"}
         </p>
       ) : (
-        <ul className="mt-8 flex flex-col gap-4">
+        <div
+          className="mt-10 grid gap-x-6 gap-y-10"
+          style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}
+        >
           {items.map((item, i) => (
-            <li key={i} className="flex items-center gap-4">
-              {item.image ? (
+            <div key={i} className="flex flex-col gap-3 text-left">
+              <p className="text-[15px] leading-snug" style={{ color: "var(--prose)" }}>
+                {item.label}
+              </p>
+              {item.image && (
                 <span
-                  className="shrink-0"
+                  className="block"
                   style={{
-                    padding: 3,
-                    borderRadius: 10,
+                    padding: 5,
+                    borderRadius: 14,
                     background: "var(--panel-solid)",
                     border: "1px solid var(--hairline)",
                     boxShadow: "var(--shadow-img)",
@@ -48,23 +54,14 @@ export function ListPage({ file, title, subtitle, items }: ListPageProps) {
                   <img
                     src={item.image}
                     alt={item.label}
-                    width={48}
-                    height={48}
-                    className="block object-cover"
-                    style={{ borderRadius: 7, width: 48, height: 48 }}
+                    className="block w-full object-cover"
+                    style={{ borderRadius: 10 }}
                   />
                 </span>
-              ) : (
-                <span className="shrink-0 select-none font-mono text-[12px]" style={{ color: "var(--accent)" }}>
-                  •
-                </span>
               )}
-              <p className="text-[16px] leading-[1.65]" style={{ color: "var(--prose)" }}>
-                {item.label}
-              </p>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </article>
   );
