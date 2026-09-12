@@ -1,0 +1,165 @@
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { ChevronDown, Moon, Search, Sun, X } from "lucide-react";
+import { buildTree, findFileName, type TreeFile } from "@/lib/tree";
+import { useTheme } from "@/lib/use-theme";
+
+function FileLink({ file, query }: { file: TreeFile; query: string }) {
+  const matches = file.name.toLowerCase().includes(query.toLowerCase());
+  if (query && !matches) return null;
+
+  const className = "block truncate rounded px-2 py-1 font-mono text-[12.5px] transition-colors";
+
+  if (file.external) {
+    return (
+      <a
+        href={file.to}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+        style={{ color: "var(--muted)" }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "var(--ink)")}
+        onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
+      >
+        {file.name}
+      </a>
+    );
+  }
+
+  return (
+    <NavLink
+      to={file.to}
+      className={className}
+      style={({ isActive }) => ({
+        color: isActive ? "var(--accent)" : "var(--muted)",
+        background: isActive ? "var(--accent-soft)" : "transparent",
+      })}
+    >
+      {file.name}
+    </NavLink>
+  );
+}
+
+export function Layout() {
+  const location = useLocation();
+  const tree = useMemo(() => buildTree(), []);
+  const activeFile = findFileName(tree, location.pathname);
+  const { theme, toggle } = useTheme();
+  const isDark = theme === "dark";
+  const [query, setQuery] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  return (
+    <div className="flex min-h-screen flex-col sm:flex-row" style={{ background: "var(--bg)", color: "var(--ink)" }}>
+      {/* ---------- Sidebar ---------- */}
+      <aside
+        className="flex w-full shrink-0 flex-col px-5 py-6 sm:h-screen sm:w-[280px] sm:sticky sm:top-0"
+        style={{ borderRight: "1px solid var(--hairline)" }}
+      >
+        <Link to="/" className="mb-6 inline-block text-[26px] leading-none tracking-tight" style={{ fontWeight: 700 }}>
+          paulo
+        </Link>
+
+        <button
+          type="button"
+          onClick={toggle}
+          aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+          className="mb-6 flex h-9 w-9 items-center justify-center rounded-lg transition-colors"
+          style={{ background: "var(--accent-soft)", color: "var(--accent)" }}
+        >
+          {isDark ? <Sun size={16} /> : <Moon size={16} />}
+        </button>
+
+        <div
+          className="mb-5 flex items-center gap-2 rounded-lg px-3 py-2"
+          style={{ background: "var(--panel-translucent)", border: "1px solid var(--hairline)" }}
+        >
+          <Search size={14} style={{ color: "var(--faint)" }} />
+          <input
+            ref={searchRef}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Find..."
+            className="w-full bg-transparent font-mono text-[12.5px] outline-none placeholder:text-[var(--faint)]"
+            style={{ color: "var(--ink)" }}
+          />
+          <kbd className="rounded px-1 font-mono text-[10px]" style={{ background: "var(--kbd-bg)", color: "var(--faint)" }}>
+            ⌘K
+          </kbd>
+        </div>
+
+        <nav className="flex flex-col gap-0.5 overflow-y-auto">
+          {tree.root.map((file) => (
+            <FileLink key={file.to} file={file} query={query} />
+          ))}
+
+          {tree.folders.map((folder) => {
+            const visible = folder.files.filter(
+              (f) => !query || f.name.toLowerCase().includes(query.toLowerCase())
+            );
+            if (query && visible.length === 0) return null;
+            return (
+              <div key={folder.name} className="mt-3">
+                <div
+                  className="flex items-center gap-1 px-1 py-1 font-mono text-[12.5px]"
+                  style={{ color: "var(--ink)", fontWeight: 600 }}
+                >
+                  <ChevronDown size={13} style={{ color: "var(--faint)" }} />
+                  /{folder.name}
+                </div>
+                <div className="ml-3 flex flex-col gap-0.5 border-l pl-2" style={{ borderColor: "var(--hairline)" }}>
+                  {folder.files.map((file) => (
+                    <FileLink key={file.to + file.name} file={file} query={query} />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </nav>
+      </aside>
+
+      {/* ---------- Main ---------- */}
+      <div className="flex min-w-0 flex-1 flex-col">
+        {/* Tab bar */}
+        <div className="flex items-center gap-1 px-4 pt-3" style={{ borderBottom: "1px solid var(--hairline)" }}>
+          <div
+            className="flex items-center gap-2 rounded-t-lg px-3 py-2 font-mono text-[12px]"
+            style={{
+              background: "var(--panel-translucent)",
+              border: "1px solid var(--hairline)",
+              borderBottom: "1px solid var(--bg)",
+              marginBottom: -1,
+              color: "var(--ink)",
+            }}
+          >
+            {activeFile}
+            <Link to="/" aria-label="Close tab" style={{ color: "var(--faint)" }}>
+              <X size={13} />
+            </Link>
+          </div>
+        </div>
+
+        {/* Content */}
+        <main className="flex-1 overflow-y-auto px-6 py-14 sm:px-10">
+          <div key={location.pathname} className="fade mx-auto max-w-2xl">
+            <p className="mb-10 text-center font-mono text-[11px]" style={{ color: "var(--faint)" }}>
+              {activeFile}
+            </p>
+            <Outlet />
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}

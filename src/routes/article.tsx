@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
 import { getArticle } from "@/lib/articles";
 import { ArticleBody } from "@/components/article-body";
 import { urlForImage } from "@/lib/sanity";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 function formatDate(iso: string | null) {
   if (!iso) return "";
@@ -21,21 +19,18 @@ export function Article() {
 
   if (!article) {
     return (
-      <main className="grain relative flex min-h-screen items-center justify-center overflow-hidden">
-        <ThemeToggle />
-        <div className="relative z-10 text-center">
-          <p className="text-[14px]" style={{ color: "var(--muted)" }}>
-            This piece wandered off.
-          </p>
-          <Link
-            to="/"
-            className="mt-3 inline-block font-mono text-[11px] uppercase tracking-[0.12em] underline underline-offset-4"
-            style={{ color: "var(--ink)" }}
-          >
-            Back home
-          </Link>
-        </div>
-      </main>
+      <div className="text-center">
+        <p className="text-[14px]" style={{ color: "var(--muted)" }}>
+          This piece wandered off.
+        </p>
+        <Link
+          to="/"
+          className="mt-3 inline-block font-mono text-[11px] uppercase tracking-[0.12em] underline underline-offset-4"
+          style={{ color: "var(--ink)" }}
+        >
+          Back home
+        </Link>
+      </div>
     );
   }
 
@@ -44,52 +39,34 @@ export function Article() {
     : null;
 
   return (
-    <main className="grain relative min-h-screen overflow-hidden">
-      <div className="grid-bg" aria-hidden="true" />
-      <ThemeToggle />
-
-      <div className="relative z-10 mx-auto max-w-2xl px-6 py-20 sm:py-28">
-        <Link
-          to="/"
-          className="rise mb-12 inline-flex items-center gap-1.5 font-mono text-[12px] transition-colors"
-          style={{ color: "var(--faint)" }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--ink)")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--faint)")}
+    <article>
+      <header>
+        {article.publishedAt ? (
+          <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.14em]" style={{ color: "var(--accent)" }}>
+            {formatDate(article.publishedAt)}
+          </p>
+        ) : null}
+        <h1
+          className="text-[34px] leading-[1.05] sm:text-[42px]"
+          style={{ fontWeight: 600, letterSpacing: "-0.04em", color: "var(--ink)" }}
         >
-          <ArrowLeft size={12} />
-          <span>cd ..</span>
-        </Link>
+          {article.title}
+        </h1>
+      </header>
 
-        <article className="rise rise-1">
-          <header>
-            {article.publishedAt ? (
-              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.14em]" style={{ color: "var(--accent)" }}>
-                {formatDate(article.publishedAt)}
-              </p>
-            ) : null}
-            <h1
-              className="text-[34px] leading-[1.05] sm:text-[42px]"
-              style={{ fontWeight: 600, letterSpacing: "-0.04em", color: "var(--ink)" }}
-            >
-              {article.title}
-            </h1>
-          </header>
+      {coverUrl ? (
+        <img
+          src={coverUrl}
+          alt={article.coverImage?.alt ?? article.title}
+          className="mt-10 w-full rounded-2xl"
+          style={{ border: "1px solid var(--hairline)", boxShadow: "var(--shadow-cover)" }}
+          loading="lazy"
+        />
+      ) : null}
 
-          {coverUrl ? (
-            <img
-              src={coverUrl}
-              alt={article.coverImage?.alt ?? article.title}
-              className="mt-10 w-full rounded-2xl"
-              style={{ border: "1px solid var(--hairline)", boxShadow: "var(--shadow-cover)" }}
-              loading="lazy"
-            />
-          ) : null}
-
-          <div className="mt-10">
-            <ArticleBody value={article.body} />
-          </div>
-        </article>
+      <div className="mt-10">
+        <ArticleBody value={article.body} />
       </div>
-    </main>
+    </article>
   );
 }

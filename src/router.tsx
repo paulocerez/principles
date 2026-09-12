@@ -1,6 +1,9 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { lazy, Suspense } from "react";
-import { Home } from "./routes/home";
+import { Layout } from "./components/layout";
+import { Readme } from "./routes/readme";
+import { Principles } from "./routes/principles";
+import { Facts } from "./routes/facts";
 import { Article } from "./routes/article";
 
 const Studio = lazy(() => import("./routes/studio"));
@@ -14,13 +17,15 @@ function StudioRoute() {
 }
 
 export const router = createBrowserRouter([
+  { path: "/studio/*", element: <StudioRoute /> },
   {
     path: "/",
-    element: <Outlet />,
+    element: <Layout />,
     children: [
-      { index: true, element: <Home /> },
+      { index: true, element: <Readme /> },
+      { path: "principles", element: <Principles /> },
+      { path: "facts", element: <Facts /> },
       { path: "writing/:slug", element: <Article /> },
-      { path: "studio/*", element: <StudioRoute /> },
     ],
   },
 ]);
