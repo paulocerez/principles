@@ -32,6 +32,7 @@ export function buildTree(): Tree {
       { name: "thoughts", files: [
         { name: "principles.md", to: "/principles" },
         { name: "facts.md", to: "/facts" },
+        { name: "random.md", to: "/random" },
       ] },
       { name: "collections", files: [
         { name: "people.md", to: "/people" },

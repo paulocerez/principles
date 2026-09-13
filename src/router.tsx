@@ -4,6 +4,7 @@ import { Layout } from "./components/layout";
 import { Readme } from "./routes/readme";
 import { Principles } from "./routes/principles";
 import { Facts } from "./routes/facts";
+import { Random } from "./routes/random";
 import { ListPage } from "./routes/list-page";
 import { Article } from "./routes/article";
 import { Countries, CountryDetail } from "./routes/countries";
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
       { index: true, element: <Readme /> },
       { path: "principles", element: <Principles /> },
       { path: "facts", element: <Facts /> },
+      { path: "random", element: <Random /> },
       { path: "people", element: <ListPage file="people.md" title="People" subtitle="People I admire or draw inspiration from." items={people} /> },
       { path: "books", element: <ListPage file="books.md" title="Books" subtitle="Books that shaped how I think." items={books} /> },
       { path: "products", element: <ListPage file="products.md" title="Products" subtitle="Products I love using." items={products} columns={5} /> },

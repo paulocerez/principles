@@ -1,0 +1,38 @@
+import { useEffect } from "react";
+import { random } from "@/data/random";
+
+export function Random() {
+  useEffect(() => {
+    document.title = "random.md - Paulo Ramirez";
+  }, []);
+
+  return (
+    <article>
+      <h1 className="text-[34px] leading-[1.1]" style={{ fontWeight: 400, letterSpacing: "-0.03em" }}>
+        Random
+      </h1>
+      <p className="mt-4 text-[15.5px] leading-[1.7]" style={{ color: "var(--muted)" }}>
+        Loose thoughts, half-formed and unsorted.
+      </p>
+
+      {random.length === 0 ? (
+        <p className="mt-8 font-mono text-[13px]" style={{ color: "var(--faint)" }}>
+          {"// nothing here yet, check back soon"}
+        </p>
+      ) : (
+        <ol className="mt-8 flex flex-col gap-5">
+          {random.map((text, i) => (
+            <li key={i} className="flex items-start gap-4">
+              <span className="shrink-0 select-none pt-1 font-mono text-[12px] tabular-nums" style={{ color: "var(--accent)" }}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <p className="text-[16px] leading-[1.65]" style={{ color: "var(--prose)" }}>
+                {text}
+              </p>
+            </li>
+          ))}
+        </ol>
+      )}
+    </article>
+  );
+}
