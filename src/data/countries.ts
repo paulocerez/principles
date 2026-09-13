@@ -21,6 +21,7 @@ export const countries: Country[] = [
   { name: "USA", code: "US", slug: "usa", cities: ["San Francisco"] },
   { name: "Cuba", code: "CU", slug: "cuba", cities: [] },
   { name: "Greece", code: "GR", slug: "greece", cities: ["Thessaloniki"] },
+  { name: "Czech Republic", code: "CZ", slug: "czech-republic", cities: ["Prague"] },
 ];
 
 export function findCountry(slug: string): Country | undefined {
