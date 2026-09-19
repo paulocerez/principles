@@ -10,7 +10,7 @@ export interface Country {
 export const countries: Country[] = [
   { name: "Germany", code: "DE", slug: "germany", cities: [] },
   { name: "Spain", code: "ES", slug: "spain", cities: ["Barcelona", "Tenerife"] },
-  { name: "Italy", code: "IT", slug: "italy", cities: ["Florence"] },
+  { name: "Italy", code: "IT", slug: "italy", cities: ["Florence (2023, 2026)", "Venice", "Bologna", "Verona", "Pisa"] },
   { name: "France", code: "FR", slug: "france", cities: ["Paris"] },
   { name: "United Kingdom", code: "GB", slug: "united-kingdom", cities: ["London"] },
   { name: "Hungary", code: "HU", slug: "hungary", cities: ["Budapest"] },
