@@ -119,8 +119,25 @@ export function Portfolio() {
           style={{ fontWeight: 500, letterSpacing: "-0.04em", color: "var(--ink)" }}
         >
           Hi, I’m Paulo.
-          <Tile src="/three.png" alt="Paulo" rotate={-4} /> I design and build software
-          <Tile src="/vetpal.png" alt="Vetpal" rotate={5} /> that feels simple, even when the problem isn’t.
+          <Tile src="/three.png" alt="Paulo" rotate={-4} /> I design and build software{" "}
+          <span className="mr-[0.1em] inline-flex align-[-0.08em]">
+            {experience.map((e, i) => (
+              <img
+                key={e.name}
+                src={e.logo}
+                alt={e.name}
+                className="relative inline-block h-[0.82em] w-[0.82em] rounded-[0.16em] object-cover transition-transform duration-300 hover:z-10 hover:-translate-y-[0.08em] hover:rotate-0"
+                style={{
+                  marginLeft: i === 0 ? 0 : "-0.16em",
+                  zIndex: experience.length - i,
+                  transform: `rotate(${[5, -4, 7][i % 3]}deg)`,
+                  boxShadow: "0 4px 14px rgba(35, 33, 28, 0.16)",
+                  border: "2px solid var(--bg)",
+                }}
+              />
+            ))}
+          </span>{" "}
+          that feels simple, even when the problem isn’t.
         </h1>
 
         <div className="mt-16 flex max-w-[60ch] flex-col gap-5 text-[17px] leading-[1.65] sm:mt-24" style={{ color: "var(--muted)" }}>
