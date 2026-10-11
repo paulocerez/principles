@@ -3,7 +3,8 @@
 // Adding a design project:
 //   1. Drop screenshots into src/assets/projects/<slug>/ named 01.png, 02.jpg, …
 //      They're sorted by filename; the first one is the cover.
-//      Supported: png, jpg, jpeg, webp, avif, svg.
+//      Supported: png, jpg, jpeg, webp, avif, svg, and mp4/webm videos
+//      (videos autoplay muted on a loop; a video can also be the cover).
 //   2. Add an entry to `designProjects` below with the same slug.
 //      `body` holds the case-study text, one string per paragraph.
 //   Captions are optional and keyed by filename without extension ("02").
@@ -23,6 +24,7 @@ export interface DesignProject {
 export interface ProjectImage {
   src: string;
   name: string;
+  video: boolean;
 }
 
 export const designProjects: DesignProject[] = [
@@ -50,7 +52,7 @@ export const designProjects: DesignProject[] = [
   },
 ];
 
-const files = import.meta.glob("../assets/projects/*/*.{png,jpg,jpeg,webp,avif,svg}", {
+const files = import.meta.glob("../assets/projects/*/*.{png,jpg,jpeg,webp,avif,svg,mp4,webm}", {
   eager: true,
   import: "default",
 }) as Record<string, string>;
@@ -59,7 +61,11 @@ export function projectImages(slug: string): ProjectImage[] {
   const prefix = `../assets/projects/${slug}/`;
   return Object.entries(files)
     .filter(([path]) => path.startsWith(prefix))
-    .map(([path, src]) => ({ src, name: path.slice(prefix.length).replace(/\.[^.]+$/, "") }))
+    .map(([path, src]) => ({
+      src,
+      name: path.slice(prefix.length).replace(/\.[^.]+$/, ""),
+      video: /\.(mp4|webm)$/.test(path),
+    }))
     .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
 }
 

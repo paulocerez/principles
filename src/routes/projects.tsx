@@ -1,7 +1,14 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "lucide-react";
-import { designProjects, experience, findDesignProject, projectImages, type DesignProject } from "@/data/projects";
+import {
+  designProjects,
+  experience,
+  findDesignProject,
+  projectImages,
+  type DesignProject,
+  type ProjectImage,
+} from "@/data/projects";
 
 const num = (i: number) => String(i + 1).padStart(2, "0");
 
@@ -10,6 +17,31 @@ const frame = {
   border: "1px solid var(--hairline)",
   background: "var(--panel)",
 };
+
+function Media({ media, alt, eager, className, style }: {
+  media: ProjectImage;
+  alt: string;
+  eager: boolean;
+  className: string;
+  style?: CSSProperties;
+}) {
+  if (media.video) {
+    return (
+      <video
+        src={media.src}
+        aria-label={alt}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload={eager ? "auto" : "metadata"}
+        className={className}
+        style={style}
+      />
+    );
+  }
+  return <img src={media.src} alt={alt} loading={eager ? "eager" : "lazy"} className={className} style={style} />;
+}
 
 // Marks history entries pushed by opening a card, so closing can go back instead of pushing.
 const OPENED = { projectDialog: true };
@@ -21,10 +53,10 @@ function ProjectCard({ project, index }: { project: DesignProject; index: number
     <Link to={`?project=${project.slug}`} state={OPENED} className="group flex flex-col">
       <div className="relative aspect-[16/10] overflow-hidden" style={frame}>
         {cover ? (
-          <img
-            src={cover.src}
+          <Media
+            media={cover}
             alt={project.title}
-            loading={index < 2 ? "eager" : "lazy"}
+            eager={index < 2}
             className="h-full w-full object-cover object-left-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
           />
         ) : (
@@ -254,10 +286,10 @@ function ProjectBody({ project, onClose }: { project: DesignProject; onClose: ()
             const caption = project.captions?.[img.name];
             return (
               <figure key={img.src}>
-                <img
-                  src={img.src}
+                <Media
+                  media={img}
                   alt={caption ?? `${project.title} ${num(i)}`}
-                  loading={i === 0 ? "eager" : "lazy"}
+                  eager={i === 0}
                   className="block h-auto w-full"
                   style={frame}
                 />
