@@ -124,12 +124,29 @@ export const designProjects: DesignProject[] = [
       "Before I design anything, I talk to the people who will use it. I've run a large number of customer calls and interviews with vets and front-desk staff. I turn what I learn into hand-drawn sketches and user stories, which help me work out how someone between two appointments can understand a screen at a glance. Those sketches become designs in Figma, and I build them myself in TypeScript and React.",
       "After launch, I use PostHog to watch how practices actually use the platform and to find where they get stuck, then feed that back into the next iteration. Today Vetpal is used by 120 practices and brings in more than €600k in annual recurring revenue.",
     ],
+    sections: [
+      {
+        title: "The product",
+        body: [],
+        media: ["01", "02", "03", "04", "05"],
+      },
+      {
+        title: "Details",
+        body: ["Small things most people wouldn't notice, but that make the product faster to use every day."],
+        media: ["06-steps", "07-preview", "08-badges", "09-conditions"],
+        pair: true,
+      },
+    ],
     captions: {
-      "01": "Dashboard: every call Emma handled, at a glance",
-      "02": "Inbox: calls, WhatsApp, email and forms in one place",
-      "03": "Task editor: practices set up how Emma handles each type of call",
-      "04": "Form builder with a live mobile preview",
-      "05": "Contacts with the full history of every interaction",
+      "01": "Dashboard: key numbers first, so a practice owner sees how Emma is doing within seconds",
+      "02": "Inbox: every channel in one list, so staff don't have to jump between phone, WhatsApp and email",
+      "03": "Task editor: call flows as plain-language steps, because that's how staff already describe a call",
+      "04": "Form builder: a live phone preview, because pet owners fill these forms out on their phones",
+      "05": "Contacts: the full history next to the contact details, so staff have context before calling back",
+      "06-steps": "Every step type has its own colour and icon, so a long workflow can be scanned without reading every line",
+      "07-preview": "The preview updates while you edit, so there's no guessing how the form will look for pet owners",
+      "08-badges": "Badges like Repeat caller and a 1-2-3 feedback scale show what matters before anyone reads the transcript",
+      "09-conditions": "Conditions read like plain sentences, such as Repeated caller or Emma decides, instead of technical rules",
     },
   },
   {
@@ -170,6 +187,22 @@ export const visibleProjects = designProjects.filter((p) => import.meta.env.MODE
 export function findDesignProject(slug: string): DesignProject | undefined {
   return visibleProjects.find((p) => p.slug === slug);
 }
+
+// Shown under the intro on /projects.
+export const designPrinciples: { title: string; text: string }[] = [
+  {
+    title: "Glanceable over complete",
+    text: "Practice staff look at the screen between two patients. What matters has to be clear in seconds.",
+  },
+  {
+    title: "Plain language over settings",
+    text: "Describe what happens, not how it's configured. Nobody should need a manual.",
+  },
+  {
+    title: "Useful on day one",
+    text: "Good defaults for everyone, and deeper options for the people who want them.",
+  },
+];
 
 export interface Experience {
   name: string;

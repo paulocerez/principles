@@ -2,6 +2,7 @@ import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "lucide-react";
 import {
+  designPrinciples,
   experience,
   findDesignProject,
   projectImages,
@@ -102,6 +103,24 @@ export function Projects() {
         Selected design work. What I care about most is making complex products feel seamless and intuitive, so users
         understand a screen at a glance and can get their work done without thinking about the interface.
       </p>
+
+      <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-3">
+        {designPrinciples.map((p, i) => (
+          <div key={p.title}>
+            <div className="flex items-baseline gap-3">
+              <span className="w-[22px] shrink-0 font-mono text-[12px] tabular-nums" style={{ color: "var(--accent)" }}>
+                {num(i)}
+              </span>
+              <h2 className="text-[15.5px] font-medium" style={{ color: "var(--ink)" }}>
+                {p.title}
+              </h2>
+            </div>
+            <p className="mt-1.5 pl-[34px] text-[14px] leading-[1.6]" style={{ color: "var(--muted)" }}>
+              {p.text}
+            </p>
+          </div>
+        ))}
+      </div>
 
       <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2">
         {visibleProjects.map((p, i) => (
@@ -213,6 +232,7 @@ function Meta({ label, children }: { label: string; children: ReactNode }) {
 }
 
 interface FigureProps {
+  fit?: boolean; // equal-size white card, for side-by-side crops of different shapes
   media: ProjectImage | undefined;
   name: string;
   number: number;
@@ -220,7 +240,7 @@ interface FigureProps {
   title: string;
 }
 
-function Figure({ media, name, number, caption, title }: FigureProps) {
+function Figure({ fit, media, name, number, caption, title }: FigureProps) {
   if (!media) {
     // Missing files only show up locally, as a reminder of what to add.
     if (import.meta.env.MODE !== "development") return null;
@@ -237,15 +257,29 @@ function Figure({ media, name, number, caption, title }: FigureProps) {
 
   return (
     <figure>
-      <Media
-        media={media}
-        alt={caption ?? `${title} ${num(number)}`}
-        eager={number === 0}
-        className="block h-auto w-full"
-        style={frame}
-      />
-      <figcaption className="mt-3 flex gap-3 font-mono text-[12px]" style={{ color: "var(--faint)" }}>
-        <span className="tabular-nums" style={{ color: "var(--accent)" }}>
+      {fit ? (
+        <div
+          className="flex aspect-[4/3] items-center justify-center overflow-hidden p-5"
+          style={{ ...frame, background: "#ffffff" }}
+        >
+          <Media
+            media={media}
+            alt={caption ?? `${title} ${num(number)}`}
+            eager={false}
+            className="block max-h-full max-w-full object-contain"
+          />
+        </div>
+      ) : (
+        <Media
+          media={media}
+          alt={caption ?? `${title} ${num(number)}`}
+          eager={number === 0}
+          className="block h-auto w-full"
+          style={frame}
+        />
+      )}
+      <figcaption className="mt-3 flex gap-3 font-mono text-[12px] leading-[1.6]" style={{ color: "var(--faint)" }}>
+        <span className="shrink-0 tabular-nums" style={{ color: "var(--accent)" }}>
           fig. {num(number)}
         </span>
         {caption && <span>{caption}</span>}
@@ -271,20 +305,22 @@ function Section({ index, section, figures, title }: {
         </h2>
       </div>
 
-      <div className="mt-5 flex flex-col gap-5">
-        {section.body.map((paragraph, i) => (
-          <p key={i} className="text-[15.5px] leading-[1.7]" style={{ color: "var(--prose)" }}>
-            {paragraph}
-          </p>
-        ))}
-      </div>
+      {section.body.length > 0 && (
+        <div className="mt-5 flex flex-col gap-5">
+          {section.body.map((paragraph, i) => (
+            <p key={i} className="text-[15.5px] leading-[1.7]" style={{ color: "var(--prose)" }}>
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      )}
 
       {section.quotes && (
         <div className="mt-8 flex flex-col gap-4">
           {section.quotes.map((quote, i) => (
             <blockquote
               key={i}
-              className="pl-5 text-[20px] italic leading-[1.45]"
+              className="pl-5 text-[20px] leading-[1.45]"
               style={{ borderLeft: "2px solid var(--accent)", color: "var(--ink)" }}
             >
               “{quote}”
@@ -296,7 +332,7 @@ function Section({ index, section, figures, title }: {
       {figures.length > 0 && (
         <div className={section.pair ? "mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2" : "mt-10 flex flex-col gap-12"}>
           {figures.map((f) => (
-            <Figure key={f.name} {...f} title={title} />
+            <Figure key={f.name} {...f} fit={section.pair} title={title} />
           ))}
         </div>
       )}
