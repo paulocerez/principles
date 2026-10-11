@@ -124,3 +124,48 @@
 @media (prefers-reduced-motion: reduce) {
   .fade { animation: none !important; opacity: 1; transform: none; }
 }
+
+/* ---------- Project dialog ---------- */
+.project-dialog {
+  width: min(960px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 48px);
+  margin: auto;
+  padding: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  box-shadow: var(--shadow-window);
+}
+
+.project-dialog::backdrop {
+  background: rgba(10, 10, 12, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.project-dialog[open] {
+  animation: dialog-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.project-dialog[open]::backdrop {
+  animation: backdrop-in 0.25s ease both;
+}
+
+@keyframes dialog-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-dialog[open],
+  .project-dialog[open]::backdrop { animation: none; }
+}

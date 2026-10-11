@@ -1,6 +1,6 @@
-import { useEffect, type ReactNode } from "react";
-import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "lucide-react";
 import { designProjects, experience, findDesignProject, projectImages, type DesignProject } from "@/data/projects";
 
 const num = (i: number) => String(i + 1).padStart(2, "0");
@@ -11,11 +11,14 @@ const frame = {
   background: "var(--panel)",
 };
 
+// Marks history entries pushed by opening a card, so closing can go back instead of pushing.
+const OPENED = { projectDialog: true };
+
 function ProjectCard({ project, index }: { project: DesignProject; index: number }) {
   const cover = projectImages(project.slug)[0];
 
   return (
-    <Link to={`/projects/${project.slug}`} className="group flex flex-col">
+    <Link to={`?project=${project.slug}`} state={OPENED} className="group flex flex-col">
       <div className="relative aspect-[4/3] overflow-hidden" style={frame}>
         {cover ? (
           <img
@@ -50,9 +53,12 @@ function ProjectCard({ project, index }: { project: DesignProject; index: number
 }
 
 export function Projects() {
+  const [params] = useSearchParams();
+  const open = findDesignProject(params.get("project") ?? "");
+
   useEffect(() => {
-    document.title = "projects.md - Paulo Ramirez";
-  }, []);
+    document.title = `${open ? `${open.slug}.md` : "projects.md"} - Paulo Ramirez`;
+  }, [open]);
 
   return (
     <article>
@@ -109,7 +115,53 @@ export function Projects() {
           ))}
         </div>
       </section>
+
+      <ProjectDialog project={open} />
     </article>
+  );
+}
+
+function ProjectDialog({ project }: { project: DesignProject | undefined }) {
+  const ref = useRef<HTMLDialogElement>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const openedFromGrid = Boolean((location.state as typeof OPENED | null)?.projectDialog);
+
+  const close = () => {
+    if (openedFromGrid) navigate(-1);
+    else navigate(location.pathname, { replace: true });
+  };
+
+  useEffect(() => {
+    const dialog = ref.current;
+    if (!dialog) return;
+    if (project && !dialog.open) dialog.showModal();
+    if (!project && dialog.open) dialog.close();
+    document.documentElement.style.overflow = project ? "hidden" : "";
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, [project]);
+
+  useEffect(() => {
+    ref.current?.scrollTo({ top: 0 });
+  }, [project?.slug]);
+
+  return (
+    <dialog
+      ref={ref}
+      aria-label={project?.title}
+      className="project-dialog"
+      onCancel={(e) => {
+        e.preventDefault();
+        close();
+      }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) close();
+      }}
+    >
+      {project && <ProjectBody project={project} onClose={close} />}
+    </dialog>
   );
 }
 
@@ -126,43 +178,35 @@ function Meta({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-export function ProjectDetail() {
-  const { slug } = useParams();
-  const project = slug ? findDesignProject(slug) : undefined;
-
-  useEffect(() => {
-    document.title = project ? `${project.slug}.md - Paulo Ramirez` : "projects.md - Paulo Ramirez";
-  }, [project]);
-
-  if (!project) {
-    return (
-      <article>
-        <p className="font-mono text-[13px]" style={{ color: "var(--faint)" }}>
-          {"// project not found"}
-        </p>
-        <Link to="/projects" className="mt-4 inline-flex items-center gap-1.5 font-mono text-[13px] underline underline-offset-4" style={{ color: "var(--accent)" }}>
-          <ArrowLeft size={14} /> back to projects
-        </Link>
-      </article>
-    );
-  }
-
+function ProjectBody({ project, onClose }: { project: DesignProject; onClose: () => void }) {
+  // Keep the original entry's state when stepping, so closing still knows whether to go back.
+  const { state } = useLocation();
   const images = projectImages(project.slug);
   const index = designProjects.indexOf(project);
   const prev = designProjects[index - 1];
   const next = designProjects[index + 1];
 
   return (
-    <article>
-      <Link
-        to="/projects"
-        className="inline-flex items-center gap-1.5 font-mono text-[13px] underline underline-offset-4"
-        style={{ color: "var(--faint)" }}
+    <div tabIndex={-1} autoFocus className="px-6 pb-12 outline-none sm:px-12">
+      <div
+        className="sticky top-0 z-10 -mx-6 flex items-center justify-between px-6 py-4 sm:-mx-12 sm:px-12"
+        style={{ background: "var(--bg)" }}
       >
-        <ArrowLeft size={14} /> projects
-      </Link>
+        <span className="font-mono text-[12px] tabular-nums" style={{ color: "var(--faint)" }}>
+          <span style={{ color: "var(--accent)" }}>{num(index)}</span> / {num(designProjects.length - 1)}
+        </span>
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close project"
+          className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors"
+          style={{ background: "var(--kbd-bg)", color: "var(--muted)" }}
+        >
+          <X size={16} />
+        </button>
+      </div>
 
-      <h1 className="mt-5 text-[34px] leading-[1.1]" style={{ fontWeight: 400, letterSpacing: "-0.03em" }}>
+      <h1 className="mt-4 text-[34px] leading-[1.1]" style={{ fontWeight: 400, letterSpacing: "-0.03em" }}>
         {project.title}
       </h1>
       <p className="mt-4 max-w-[62ch] text-[15.5px] leading-[1.7]" style={{ color: "var(--prose)" }}>
@@ -201,7 +245,7 @@ export function ProjectDetail() {
           {images.map((img, i) => {
             const caption = project.captions?.[img.name];
             return (
-              <figure key={img.name}>
+              <figure key={img.src}>
                 <img
                   src={img.src}
                   alt={caption ?? `${project.title} ${num(i)}`}
@@ -225,7 +269,7 @@ export function ProjectDetail() {
         <nav className="mt-20 grid grid-cols-2 gap-8 pt-6" style={{ borderTop: "1px solid var(--hairline)" }}>
           <div>
             {prev && (
-              <Link to={`/projects/${prev.slug}`} className="group flex flex-col gap-1">
+              <Link to={`?project=${prev.slug}`} state={state} replace className="flex flex-col gap-1">
                 <span className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.08em]" style={{ color: "var(--faint)" }}>
                   <ArrowLeft size={12} /> previous
                 </span>
@@ -235,7 +279,7 @@ export function ProjectDetail() {
           </div>
           <div className="text-right">
             {next && (
-              <Link to={`/projects/${next.slug}`} className="group flex flex-col items-end gap-1">
+              <Link to={`?project=${next.slug}`} state={state} replace className="flex flex-col items-end gap-1">
                 <span className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.08em]" style={{ color: "var(--faint)" }}>
                   next <ArrowRight size={12} />
                 </span>
@@ -245,6 +289,6 @@ export function ProjectDetail() {
           </div>
         </nav>
       )}
-    </article>
+    </div>
   );
 }
