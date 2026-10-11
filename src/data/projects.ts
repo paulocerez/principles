@@ -50,6 +50,21 @@ export const designProjects: DesignProject[] = [
       "05": "Contacts with the full history of every interaction",
     },
   },
+  {
+    slug: "ponto",
+    title: "Ponto",
+    tagline: "An AI sourcing tool for hiring managers.",
+    year: "2025",
+    roles: ["Founder", "Product", "Engineering", "Design"],
+    tools: ["Figma", "Framer", "TypeScript", "React", "PostHog", "Pen & paper"],
+    url: "https://prospecto-self.vercel.app/",
+    body: [
+      "Ponto helps hiring managers at VC-backed Series A startups find the right candidates on LinkedIn. Instead of building complicated search filters, they describe the person they're looking for in plain language. Ponto finds and ranks matching profiles and then handles the outreach automatically. It works best for teams hiring for several roles at once.",
+      "I founded Ponto in 2025 and managed product and engineering, including all of the design. I designed the product in Figma, built the marketing site in Framer, and built the app itself in TypeScript and React.",
+      "The hardest problem was turning a vague description into a precise search. I designed a flow where Ponto shows how it understood the request as editable criteria, so users can correct it before any candidates are ranked.",
+      "We ran pilots with 10 startups and earned our first revenue. Talking to those hiring managers taught me a lot about what teams will actually pay for, and those lessons led me to my next company, Vetpal.",
+    ],
+  },
 ];
 
 const files = import.meta.glob("../assets/projects/*/*.{png,jpg,jpeg,webp,avif,svg,mp4,webm}", {
