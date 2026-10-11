@@ -47,7 +47,7 @@ export const designProjects: DesignProject[] = [
     slug: "emma-tasks",
     title: "Emma's Task Editor",
     tagline: "Letting vet staff teach an AI how to handle their calls.",
-    year: "2025",
+    year: "2025 – 2026",
     roles: ["Product Design", "User Research", "Frontend Development"],
     tools: ["Pen & paper", "Figma", "PostHog", "TypeScript", "React"],
     draft: true,
@@ -58,14 +58,15 @@ export const designProjects: DesignProject[] = [
       {
         title: "Problem",
         body: [
-          "[TODO] How were tasks set up before the editor existed? E.g. did practices send you their rules and you configured Emma by hand? What did that cost you and them?",
-          "[TODO] Who sets up the tasks: practice owner, head nurse, front desk? How technical are they, and how much time do they have?",
+          "At first, practices had no way to shape how Emma handled their calls. Under the hood, each practice's call flows lived in a free-form prompt that our team wrote and maintained internally. Every change, like a new emergency procedure or different questions for new patients, had to go through us, and practices couldn't see how Emma would actually behave.",
+          "The editor had to work for the whole practice team, not one technical admin. Most staff are comfortable with software today, but they think about how a call should go, not about prompts.",
         ],
       },
       {
         title: "Research",
         body: [
-          "[TODO] How many practices did you talk to about this, and what did you watch in PostHog? What was the one insight that changed the direction?",
+          "In January 2026 I spoke with 20 to 25 practices in person at a veterinary trade fair in Leipzig, Germany.",
+          "[TODO] What did they tell you? What did you see in PostHog? What was the one insight that changed the direction?",
         ],
         quotes: [
           "[TODO] A real quote from a vet or front-desk staff member.",
