@@ -66,12 +66,11 @@ export const designProjects: DesignProject[] = [
         title: "Research",
         body: [
           "In January 2026 I spoke with 20 to 25 practices in person at a veterinary trade fair in Leipzig, Germany.",
-          "[TODO] What did they tell you? What did you see in PostHog? What was the one insight that changed the direction?",
+          "Their main wish was flexibility. They wanted to change how Emma works on their own, without waiting for us. This was especially true for bigger clinics, where one or two internal champions work with Vetpal every day and want to fine-tune it.",
+          "That changed the goal. Instead of a settings page with a few options, the editor had to be a real tool for those champions, while staying simple enough for anyone else on the team.",
+          "[TODO optional] Anything you saw in PostHog that supported this, or remove this line.",
         ],
-        quotes: [
-          "[TODO] A real quote from a vet or front-desk staff member.",
-          "[TODO] A second quote, ideally one that shows the pain point.",
-        ],
+        quotes: ["We want to change things ourselves without emailing you."],
       },
       {
         title: "Exploration",
