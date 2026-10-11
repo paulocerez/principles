@@ -143,6 +143,22 @@ export function Portfolio() {
           </p>
         </div>
 
+        <div className="mt-8 flex gap-6 text-[15px]">
+          <a
+            href="https://www.linkedin.com/in/paulo-ramirez-cedenos/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-1 underline decoration-1 underline-offset-4"
+            style={{ color: "var(--ink)" }}
+          >
+            LinkedIn
+            <ArrowUpRight
+              size={14}
+              className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
+          </a>
+        </div>
+
         <section id="work" className="scroll-mt-10 pt-28">
           <h2 className="text-[22px]" style={{ fontWeight: 500, letterSpacing: "-0.02em", color: "var(--ink)" }}>
             Selected work
