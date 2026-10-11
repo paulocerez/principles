@@ -269,7 +269,7 @@ function ProjectBody({ project, onClose }: { project: DesignProject; onClose: ()
         )}
       </dl>
 
-      <div className="mt-10 flex max-w-[62ch] flex-col gap-5">
+      <div className="mt-10 flex flex-col gap-5">
         {project.body.map((paragraph, i) => (
           <p key={i} className="text-[15.5px] leading-[1.7]" style={{ color: "var(--prose)" }}>
             {paragraph}
