@@ -52,5 +52,6 @@ export function findFileName(tree: Tree, pathname: string): string {
   if (match) return match.name;
   const seg = pathname.split("/").filter(Boolean);
   if (seg[0] === "countries" && seg[1]) return `${seg[1]}.md`;
+  if (seg[0] === "projects" && seg[1]) return `${seg[1]}.md`;
   return "README.md";
 }

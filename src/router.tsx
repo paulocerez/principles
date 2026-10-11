@@ -8,7 +8,7 @@ import { Random } from "./routes/random";
 import { ListPage } from "./routes/list-page";
 import { Article } from "./routes/article";
 import { Countries, CountryDetail } from "./routes/countries";
-import { Projects } from "./routes/projects";
+import { Projects, ProjectDetail } from "./routes/projects";
 import { people } from "./data/people";
 import { books } from "./data/books";
 import { products } from "./data/products";
@@ -41,6 +41,7 @@ export const router = createBrowserRouter([
       { path: "countries/:slug", element: <CountryDetail /> },
       { path: "music", element: <ListPage file="music.md" title="Music" subtitle="Music I keep coming back to." items={music} /> },
       { path: "projects", element: <Projects /> },
+      { path: "projects/:slug", element: <ProjectDetail /> },
       { path: "writing/:slug", element: <Article /> },
     ],
   },

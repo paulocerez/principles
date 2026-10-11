@@ -1,13 +1,72 @@
-// Projects I've built or worked on.
+// Design projects + experience.
+//
+// Adding a design project:
+//   1. Drop screenshots into src/assets/projects/<slug>/ named 01.png, 02.jpg, …
+//      They're sorted by filename; the first one is the cover.
+//      Supported: png, jpg, jpeg, webp, avif, svg.
+//   2. Add an entry to `designProjects` below with the same slug.
+//   Captions are optional and keyed by filename without extension ("02").
 
-export interface Project {
+export interface DesignProject {
+  slug: string;
+  title: string;
+  year: string;
+  role: string;
+  tools: string[];
+  summary: string;
+  intro: string;
+  captions?: Record<string, string>;
+  url?: string;
+}
+
+export interface ProjectImage {
+  src: string;
+  name: string;
+}
+
+export const designProjects: DesignProject[] = [
+  {
+    slug: "example",
+    title: "Example Project",
+    year: "2026",
+    role: "UI/UX Design",
+    tools: ["Figma", "Illustrator"],
+    summary: "Placeholder — replace with a real project before handing in.",
+    intro:
+      "A short paragraph about the brief, the problem and the outcome. What was the context, what did you design, and what did you learn along the way?",
+    captions: {
+      "01": "Cover",
+      "02": "Exploration",
+      "03": "Final screens",
+    },
+  },
+];
+
+const files = import.meta.glob("../assets/projects/*/*.{png,jpg,jpeg,webp,avif,svg}", {
+  eager: true,
+  import: "default",
+}) as Record<string, string>;
+
+export function projectImages(slug: string): ProjectImage[] {
+  const prefix = `../assets/projects/${slug}/`;
+  return Object.entries(files)
+    .filter(([path]) => path.startsWith(prefix))
+    .map(([path, src]) => ({ src, name: path.slice(prefix.length).replace(/\.[^.]+$/, "") }))
+    .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+}
+
+export function findDesignProject(slug: string): DesignProject | undefined {
+  return designProjects.find((p) => p.slug === slug);
+}
+
+export interface Experience {
   name: string;
   url: string;
   logo: string;
   description: string;
 }
 
-export const projects: Project[] = [
+export const experience: Experience[] = [
   {
     name: "Vetpal",
     url: "https://vetpal.de/",
