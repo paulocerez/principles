@@ -5,16 +5,17 @@
 //      They're sorted by filename; the first one is the cover.
 //      Supported: png, jpg, jpeg, webp, avif, svg.
 //   2. Add an entry to `designProjects` below with the same slug.
+//      `body` holds the case-study text, one string per paragraph.
 //   Captions are optional and keyed by filename without extension ("02").
 
 export interface DesignProject {
   slug: string;
   title: string;
+  tagline: string;
   year: string;
-  role: string;
+  roles: string[];
   tools: string[];
-  summary: string;
-  intro: string;
+  body: string[]; // one string per paragraph
   captions?: Record<string, string>;
   url?: string;
 }
@@ -26,18 +27,25 @@ export interface ProjectImage {
 
 export const designProjects: DesignProject[] = [
   {
-    slug: "example",
-    title: "Example Project",
-    year: "2026",
-    role: "UI/UX Design",
-    tools: ["Figma", "Illustrator"],
-    summary: "Placeholder — replace with a real project before handing in.",
-    intro:
-      "A short paragraph about the brief, the problem and the outcome. What was the context, what did you design, and what did you learn along the way?",
+    slug: "vetpal",
+    title: "Vetpal",
+    tagline: "An AI communication platform for veterinary clinics.",
+    year: "2025 – Present",
+    roles: ["Product Development", "Engineering", "Design"],
+    tools: ["Figma", "TypeScript", "React", "PostHog", "Pen & paper"],
+    url: "https://vetpal.de/",
+    body: [
+      "Vetpal is an AI communication platform for veterinary clinics. Its voice assistant, Emma, answers calls around the clock, books, moves and cancels appointments, and routes emergencies to the right person. Practice teams can focus on the animals in front of them instead of a phone that never stops ringing.",
+      "I co-founded Vetpal in 2025 and lead product development, engineering and design. I built the entire product on my own, from the first sketches to the version practices use every day. User experience is at the centre of my daily work.",
+      "Before I design anything, I talk to the people who will use it. I've run a large number of customer calls and interviews with vets and front-desk staff. I turn what I learn into hand-drawn sketches and user stories, which help me work out how someone between two appointments can understand a screen at a glance. Those sketches become designs in Figma, and I build them myself in TypeScript and React.",
+      "After launch, I use PostHog to watch how practices actually use the platform and to find where they get stuck, then feed that back into the next iteration. Today Vetpal is used by 120 practices and brings in more than €600k in annual recurring revenue.",
+    ],
     captions: {
-      "01": "Cover",
-      "02": "Exploration",
-      "03": "Final screens",
+      "01": "Dashboard: every call Emma handled, at a glance",
+      "02": "Inbox: calls, WhatsApp, email and forms in one place",
+      "03": "Task editor: practices set up how Emma handles each type of call",
+      "04": "Form builder with a live mobile preview",
+      "05": "Contacts with the full history of every interaction",
     },
   },
 ];

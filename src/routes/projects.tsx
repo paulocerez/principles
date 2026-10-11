@@ -19,13 +19,13 @@ function ProjectCard({ project, index }: { project: DesignProject; index: number
 
   return (
     <Link to={`?project=${project.slug}`} state={OPENED} className="group flex flex-col">
-      <div className="relative aspect-[4/3] overflow-hidden" style={frame}>
+      <div className="relative aspect-[16/10] overflow-hidden" style={frame}>
         {cover ? (
           <img
             src={cover.src}
             alt={project.title}
             loading={index < 2 ? "eager" : "lazy"}
-            className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+            className="h-full w-full object-cover object-left-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center font-mono text-[12px]" style={{ color: "var(--faint)" }}>
@@ -46,7 +46,7 @@ function ProjectCard({ project, index }: { project: DesignProject; index: number
         </span>
       </div>
       <p className="mt-1 pl-[34px] text-[14.5px] leading-[1.6]" style={{ color: "var(--muted)" }}>
-        {project.role} — {project.summary}
+        {project.tagline}
       </p>
     </Link>
   );
@@ -209,8 +209,8 @@ function ProjectBody({ project, onClose }: { project: DesignProject; onClose: ()
       <h1 className="mt-4 text-[34px] leading-[1.1]" style={{ fontWeight: 400, letterSpacing: "-0.03em" }}>
         {project.title}
       </h1>
-      <p className="mt-4 max-w-[62ch] text-[15.5px] leading-[1.7]" style={{ color: "var(--prose)" }}>
-        {project.intro}
+      <p className="mt-3 text-[17px] leading-[1.5]" style={{ color: "var(--muted)" }}>
+        {project.tagline}
       </p>
 
       <dl
@@ -218,7 +218,7 @@ function ProjectBody({ project, onClose }: { project: DesignProject; onClose: ()
         style={{ borderTop: "1px solid var(--hairline)", borderBottom: "1px solid var(--hairline)" }}
       >
         <Meta label="Year">{project.year}</Meta>
-        <Meta label="Role">{project.role}</Meta>
+        <Meta label="Role">{project.roles.join(", ")}</Meta>
         <Meta label="Tools">{project.tools.join(", ")}</Meta>
         {project.url && (
           <Meta label="Link">
@@ -235,6 +235,14 @@ function ProjectBody({ project, onClose }: { project: DesignProject; onClose: ()
           </Meta>
         )}
       </dl>
+
+      <div className="mt-10 flex max-w-[62ch] flex-col gap-5">
+        {project.body.map((paragraph, i) => (
+          <p key={i} className="text-[15.5px] leading-[1.7]" style={{ color: "var(--prose)" }}>
+            {paragraph}
+          </p>
+        ))}
+      </div>
 
       {images.length === 0 ? (
         <p className="mt-10 font-mono text-[13px]" style={{ color: "var(--faint)" }}>
