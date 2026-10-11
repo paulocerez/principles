@@ -5,8 +5,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Inter Variable"', "Inter", "system-ui", "sans-serif"],
-        bricolage: ['"Inter Variable"', "Inter", "system-ui", "sans-serif"],
+        sans: ['"Instrument Serif"', "Georgia", "serif"],
+        bricolage: ['"Instrument Serif"', "Georgia", "serif"],
+        serif: ['"Instrument Serif"', "Georgia", "serif"],
         mono: [
           "ui-monospace",
           "SFMono-Regular",

@@ -25,7 +25,7 @@ const components: PortableTextComponents = {
     ),
     blockquote: ({ children }) => (
       <blockquote
-        className="my-6 rounded-r-lg pl-5 pr-4 py-1 text-[15px]"
+        className="my-6 rounded-r-lg pl-5 pr-4 py-1 text-[15px] italic"
         style={{ borderLeft: "2px solid var(--accent)", color: "var(--muted)" }}
       >
         {children}

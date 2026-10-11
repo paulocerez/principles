@@ -184,6 +184,7 @@
   --shadow-window: 0 24px 70px rgba(35, 33, 28, 0.16), 0 2px 8px rgba(35, 33, 28, 0.05);
   --accent: #5b4bff;
 
+  font-family: "Inter Variable", Inter, system-ui, sans-serif;
   color: var(--ink);
   background-color: var(--bg);
   background-image: radial-gradient(rgba(35, 33, 28, 0.13) 1px, transparent 1px);
