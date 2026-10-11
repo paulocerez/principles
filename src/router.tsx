@@ -8,7 +8,7 @@ import { Random } from "./routes/random";
 import { ListPage } from "./routes/list-page";
 import { Article } from "./routes/article";
 import { Countries, CountryDetail } from "./routes/countries";
-import { Projects } from "./routes/projects";
+import { Portfolio } from "./routes/portfolio";
 import { books } from "./data/books";
 import { products } from "./data/products";
 import { music } from "./data/music";
@@ -25,6 +25,7 @@ function StudioRoute() {
 
 export const router = createBrowserRouter([
   { path: "/studio/*", element: <StudioRoute /> },
+  { path: "/portfolio", element: <Portfolio /> },
   {
     path: "/",
     element: <Layout />,
@@ -38,7 +39,6 @@ export const router = createBrowserRouter([
       { path: "countries", element: <Countries /> },
       { path: "countries/:slug", element: <CountryDetail /> },
       { path: "music", element: <ListPage file="music.md" title="Music" subtitle="Music I keep coming back to." items={music} /> },
-      { path: "projects", element: <Projects /> },
       { path: "writing/:slug", element: <Article /> },
     ],
   },

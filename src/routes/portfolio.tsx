@@ -72,7 +72,7 @@ function ProjectCard({ project, index }: { project: DesignProject; index: number
         <span className="w-[22px] shrink-0 font-mono text-[12px] tabular-nums" style={{ color: "var(--accent)" }}>
           {num(index)}
         </span>
-        <span className="min-w-0 flex-1 truncate text-[17px]" style={{ color: "var(--ink)" }}>
+        <span className="min-w-0 flex-1 truncate text-[17px]" style={{ fontWeight: 500, color: "var(--ink)" }}>
           {project.title}
         </span>
         <span className="shrink-0 font-mono text-[12px] tabular-nums" style={{ color: "var(--faint)" }}>
@@ -86,91 +86,167 @@ function ProjectCard({ project, index }: { project: DesignProject; index: number
   );
 }
 
-export function Projects() {
+function Tile({ src, alt, rotate }: { src: string; alt: string; rotate: number }) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className="mx-[0.08em] inline-block h-[0.82em] w-[0.82em] rounded-[0.16em] object-cover align-[-0.08em] transition-transform duration-300 hover:rotate-0 hover:scale-110"
+      style={{ transform: `rotate(${rotate}deg)`, boxShadow: "0 4px 14px rgba(35, 33, 28, 0.14)" }}
+    />
+  );
+}
+
+const NAV = [
+  { id: "work", label: "Work" },
+  { id: "principles", label: "Principles" },
+  { id: "experience", label: "Experience" },
+];
+
+export function Portfolio() {
   const [params] = useSearchParams();
   const open = findDesignProject(params.get("project") ?? "");
 
   useEffect(() => {
-    document.title = `${open ? `${open.slug}.md` : "projects.md"} - Paulo Ramirez`;
+    document.title = open ? `${open.title} - Paulo Ramirez` : "Portfolio - Paulo Ramirez";
   }, [open]);
 
   return (
-    <article>
-      <h1 className="text-[34px] leading-[1.1]" style={{ fontWeight: 400, letterSpacing: "-0.03em" }}>
-        Projects
-      </h1>
-      <p className="mt-4 max-w-[62ch] text-[15.5px] leading-[1.7]" style={{ color: "var(--muted)" }}>
-        Selected design work. What I care about most is making complex products feel seamless and intuitive, so users
-        understand a screen at a glance and can get their work done without thinking about the interface.
-      </p>
+    <div className="portfolio min-h-screen">
+      <main className="mx-auto max-w-[1120px] px-6 pb-40 pt-16 sm:px-10 sm:pt-24">
+        <h1
+          className="max-w-[18ch] text-[clamp(40px,6.4vw,84px)] leading-[1.08]"
+          style={{ fontWeight: 500, letterSpacing: "-0.04em", color: "var(--ink)" }}
+        >
+          Hi, I’m Paulo.
+          <Tile src="/three.png" alt="Paulo" rotate={-4} /> I design and build software
+          <Tile src="/vetpal.png" alt="Vetpal" rotate={5} /> that feels simple, even when the problem isn’t.
+        </h1>
 
-      <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-3">
-        {designPrinciples.map((p, i) => (
-          <div key={p.title}>
-            <div className="flex items-baseline gap-3">
-              <span className="w-[22px] shrink-0 font-mono text-[12px] tabular-nums" style={{ color: "var(--accent)" }}>
-                {num(i)}
-              </span>
-              <h2 className="text-[15.5px] font-medium" style={{ color: "var(--ink)" }}>
-                {p.title}
-              </h2>
-            </div>
-            <p className="mt-1.5 pl-[34px] text-[14px] leading-[1.6]" style={{ color: "var(--muted)" }}>
-              {p.text}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2">
-        {visibleProjects.map((p, i) => (
-          <ProjectCard key={p.slug} project={p} index={i} />
-        ))}
-      </div>
-
-      <section className="mt-20 pt-10" style={{ borderTop: "1px solid var(--hairline)" }}>
-        <p className="font-mono text-[12px]" style={{ color: "var(--faint)" }}>
-          {"// experience"}
-        </p>
-        <div className="mt-6 flex flex-col gap-7">
-          {experience.map((e) => (
+        <div className="mt-16 flex max-w-[60ch] flex-col gap-5 text-[17px] leading-[1.65] sm:mt-24" style={{ color: "var(--muted)" }}>
+          <p>
+            What I care about most is making complex products feel seamless and intuitive, so users understand a
+            screen at a glance and can get their work done without thinking about the interface.
+          </p>
+          <p>
+            Currently co-founder & CTO of{" "}
             <a
-              key={e.url}
-              href={e.url}
+              href="https://vetpal.de/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-start gap-4"
+              className="underline decoration-1 underline-offset-4"
+              style={{ color: "var(--ink)" }}
             >
-              <img
-                src={e.logo}
-                alt={e.name}
-                width={32}
-                height={32}
-                className="block shrink-0"
-                style={{ width: 32, height: 32, borderRadius: 7 }}
-              />
-              <div className="min-w-0">
-                <div className="flex h-8 items-center gap-1.5">
-                  <span className="text-[17px]" style={{ color: "var(--ink)" }}>
-                    {e.name}
-                  </span>
-                  <ArrowUpRight
-                    size={15}
-                    style={{ color: "var(--faint)" }}
-                    className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                  />
-                </div>
-                <p className="max-w-[62ch] text-[14.5px] leading-[1.6]" style={{ color: "var(--prose)" }}>
-                  {e.description}
+              Vetpal
+            </a>
+            , where I lead product, design and engineering. Based in Berlin.
+          </p>
+        </div>
+
+        <section id="work" className="scroll-mt-10 pt-28">
+          <h2 className="text-[22px]" style={{ fontWeight: 500, letterSpacing: "-0.02em", color: "var(--ink)" }}>
+            Selected work
+          </h2>
+          <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2">
+            {visibleProjects.map((p, i) => (
+              <ProjectCard key={p.slug} project={p} index={i} />
+            ))}
+          </div>
+        </section>
+
+        <section id="principles" className="scroll-mt-10 pt-28">
+          <h2 className="text-[22px]" style={{ fontWeight: 500, letterSpacing: "-0.02em", color: "var(--ink)" }}>
+            How I work
+          </h2>
+          <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-3">
+            {designPrinciples.map((p, i) => (
+              <div key={p.title} className="pt-5" style={{ borderTop: "1px solid var(--hairline)" }}>
+                <span className="font-mono text-[12px] tabular-nums" style={{ color: "var(--accent)" }}>
+                  {num(i)}
+                </span>
+                <h3 className="mt-3 text-[17px]" style={{ fontWeight: 500, color: "var(--ink)" }}>
+                  {p.title}
+                </h3>
+                <p className="mt-2 text-[15px] leading-[1.6]" style={{ color: "var(--muted)" }}>
+                  {p.text}
                 </p>
               </div>
-            </a>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+
+        <section id="experience" className="scroll-mt-10 pt-28">
+          <h2 className="text-[22px]" style={{ fontWeight: 500, letterSpacing: "-0.02em", color: "var(--ink)" }}>
+            Experience
+          </h2>
+          <div className="mt-8 flex flex-col">
+            {experience.map((e) => (
+              <a
+                key={e.url}
+                href={e.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-start gap-4 py-6"
+                style={{ borderTop: "1px solid var(--hairline)" }}
+              >
+                <img
+                  src={e.logo}
+                  alt={e.name}
+                  width={32}
+                  height={32}
+                  className="block shrink-0"
+                  style={{ width: 32, height: 32, borderRadius: 7 }}
+                />
+                <div className="min-w-0">
+                  <div className="flex h-8 items-center gap-1.5">
+                    <span className="text-[17px]" style={{ fontWeight: 500, color: "var(--ink)" }}>
+                      {e.name}
+                    </span>
+                    <ArrowUpRight
+                      size={15}
+                      style={{ color: "var(--faint)" }}
+                      className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    />
+                  </div>
+                  <p className="max-w-[62ch] text-[15px] leading-[1.6]" style={{ color: "var(--muted)" }}>
+                    {e.description}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <footer className="pt-28 text-center font-mono text-[12px]" style={{ color: "var(--faint)" }}>
+          Made in Berlin
+        </footer>
+      </main>
+
+      <nav
+        aria-label="Sections"
+        className="fixed bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1 rounded-full p-1.5"
+        style={{
+          background: "rgba(255, 255, 255, 0.82)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          border: "1px solid var(--hairline)",
+          boxShadow: "0 8px 30px rgba(35, 33, 28, 0.1)",
+        }}
+      >
+        {NAV.map((item) => (
+          <a
+            key={item.id}
+            href={`#${item.id}`}
+            className="rounded-full px-4 py-2 text-[14px] transition-colors hover:bg-[var(--kbd-bg)]"
+            style={{ color: "var(--muted)" }}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
 
       <ProjectDialog project={open} />
-    </article>
+    </div>
   );
 }
 
