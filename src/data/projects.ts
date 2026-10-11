@@ -206,6 +206,7 @@ export const designPrinciples: { title: string; text: string }[] = [
 
 export interface Experience {
   name: string;
+  years: string;
   url: string;
   logo: string;
   description: string;
@@ -214,6 +215,7 @@ export interface Experience {
 export const experience: Experience[] = [
   {
     name: "Vetpal",
+    years: "2025 – Present",
     url: "https://vetpal.de/",
     logo: "/vetpal.png",
     description:
@@ -221,6 +223,7 @@ export const experience: Experience[] = [
   },
   {
     name: "telli",
+    years: "2025",
     url: "https://telli.com/",
     logo: "/telli.png",
     description:
@@ -228,6 +231,7 @@ export const experience: Experience[] = [
   },
   {
     name: "Augustus",
+    years: "2024",
     url: "https://augustus.com/",
     logo: "/augustus.png",
     description:

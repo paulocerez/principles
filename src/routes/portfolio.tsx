@@ -213,7 +213,7 @@ export function Portfolio() {
                   className="block shrink-0"
                   style={{ width: 32, height: 32, borderRadius: 7 }}
                 />
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <div className="flex h-8 items-center gap-1.5">
                     <span className="text-[17px]" style={{ fontWeight: 500, color: "var(--ink)" }}>
                       {e.name}
@@ -223,6 +223,9 @@ export function Portfolio() {
                       style={{ color: "var(--faint)" }}
                       className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                     />
+                    <span className="ml-auto shrink-0 font-mono text-[12px] tabular-nums" style={{ color: "var(--faint)" }}>
+                      {e.years}
+                    </span>
                   </div>
                   <p className="max-w-[62ch] text-[15px] leading-[1.6]" style={{ color: "var(--muted)" }}>
                     {e.description}
