@@ -8,6 +8,10 @@
 //   2. Add an entry to `designProjects` below with the same slug.
 //      `body` holds the case-study text, one string per paragraph.
 //   Captions are optional and keyed by filename without extension ("02").
+//
+// Process case studies can add `sections` (Problem, Research, …). Each section
+// pulls its media by filename from the same folder; anything not used by a
+// section is shown at the end. Set `draft: true` to only show a project locally.
 
 export interface DesignProject {
   slug: string;
@@ -19,6 +23,16 @@ export interface DesignProject {
   body: string[]; // one string per paragraph
   captions?: Record<string, string>;
   url?: string;
+  sections?: CaseSection[];
+  draft?: boolean; // shown in `npm run dev`, hidden on the live site
+}
+
+export interface CaseSection {
+  title: string;
+  body: string[];
+  quotes?: string[];
+  media?: string[]; // filenames without extension, from the project folder
+  pair?: boolean; // show media side by side, e.g. before/after
 }
 
 export interface ProjectImage {
@@ -28,6 +42,74 @@ export interface ProjectImage {
 }
 
 export const designProjects: DesignProject[] = [
+  {
+    // Process case study. Replace every [TODO] and add the missing images, then remove `draft`.
+    slug: "emma-tasks",
+    title: "Emma's Task Editor",
+    tagline: "Letting vet staff teach an AI how to handle their calls.",
+    year: "2025",
+    roles: ["Product Design", "User Research", "Frontend Development"],
+    tools: ["Pen & paper", "Figma", "PostHog", "TypeScript", "React"],
+    draft: true,
+    body: [
+      "Every veterinary practice handles calls differently. An emergency at one clinic means an immediate transfer, at another it means a few questions first. For Emma, Vetpal's AI voice assistant, to be useful, practices had to be able to tell her exactly how to handle each type of call. This case study shows how I designed the editor that lets them do that, without any technical knowledge.",
+    ],
+    sections: [
+      {
+        title: "Problem",
+        body: [
+          "[TODO] How were tasks set up before the editor existed? E.g. did practices send you their rules and you configured Emma by hand? What did that cost you and them?",
+          "[TODO] Who sets up the tasks: practice owner, head nurse, front desk? How technical are they, and how much time do they have?",
+        ],
+      },
+      {
+        title: "Research",
+        body: [
+          "[TODO] How many practices did you talk to about this, and what did you watch in PostHog? What was the one insight that changed the direction?",
+        ],
+        quotes: [
+          "[TODO] A real quote from a vet or front-desk staff member.",
+          "[TODO] A second quote, ideally one that shows the pain point.",
+        ],
+      },
+      {
+        title: "Exploration",
+        body: [
+          "I explored three directions on paper before opening Figma: [TODO confirm or replace] a single free-text prompt where practices describe the behaviour in their own words, a fixed form with predefined options, and a workflow of steps that Emma works through in order.",
+          "[TODO] Why did the free-text prompt fail (unpredictable results?), and why was the form too rigid?",
+        ],
+        media: ["02-sketch", "03-sketch"],
+        pair: true,
+      },
+      {
+        title: "Decision",
+        body: [
+          "The workflow won because it matches how practice staff already think about a call: first ask about symptoms, then check if it's an emergency, then forward it. Each step is a plain-language card, conditions branch visibly, and availability rules like opening hours sit right next to the workflow they affect.",
+          "[TODO] Any detail you're proud of, e.g. the step types with their own colours and icons, drag to reorder, or the hints field.",
+        ],
+        media: ["01-cover"],
+      },
+      {
+        title: "Before & after",
+        body: ["[TODO] One or two sentences on what changed between the first version and today."],
+        media: ["04-before", "05-after"],
+        pair: true,
+      },
+      {
+        title: "Result",
+        body: [
+          "[TODO] One concrete number, e.g. share of practices that set up tasks themselves, setup time before vs. after, or fewer support requests about Emma's behaviour.",
+        ],
+      },
+    ],
+    captions: {
+      "01-cover": "The final task editor: an emergency-forwarding workflow",
+      "02-sketch": "Early sketch: [TODO]",
+      "03-sketch": "Early sketch: [TODO]",
+      "04-before": "Before: [TODO]",
+      "05-after": "After: [TODO]",
+    },
+  },
   {
     slug: "vetpal",
     title: "Vetpal",
@@ -83,8 +165,10 @@ export function projectImages(slug: string): ProjectImage[] {
     .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
 }
 
+export const visibleProjects = designProjects.filter((p) => import.meta.env.MODE === "development" || !p.draft);
+
 export function findDesignProject(slug: string): DesignProject | undefined {
-  return designProjects.find((p) => p.slug === slug);
+  return visibleProjects.find((p) => p.slug === slug);
 }
 
 export interface Experience {

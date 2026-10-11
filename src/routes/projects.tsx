@@ -2,10 +2,11 @@ import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "lucide-react";
 import {
-  designProjects,
   experience,
   findDesignProject,
   projectImages,
+  visibleProjects,
+  type CaseSection,
   type DesignProject,
   type ProjectImage,
 } from "@/data/projects";
@@ -103,7 +104,7 @@ export function Projects() {
       </p>
 
       <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2">
-        {designProjects.map((p, i) => (
+        {visibleProjects.map((p, i) => (
           <ProjectCard key={p.slug} project={p} index={i} />
         ))}
       </div>
@@ -211,13 +212,116 @@ function Meta({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
+interface FigureProps {
+  media: ProjectImage | undefined;
+  name: string;
+  number: number;
+  caption: string | undefined;
+  title: string;
+}
+
+function Figure({ media, name, number, caption, title }: FigureProps) {
+  if (!media) {
+    // Missing files only show up locally, as a reminder of what to add.
+    if (import.meta.env.MODE !== "development") return null;
+    return (
+      <div
+        className="flex aspect-[16/10] w-full flex-col items-center justify-center gap-1 rounded-[10px] px-4 text-center font-mono text-[12px]"
+        style={{ border: "1px dashed var(--faint)", color: "var(--faint)" }}
+      >
+        <span>{`add ${name}.jpg`}</span>
+        {caption && <span>{caption}</span>}
+      </div>
+    );
+  }
+
+  return (
+    <figure>
+      <Media
+        media={media}
+        alt={caption ?? `${title} ${num(number)}`}
+        eager={number === 0}
+        className="block h-auto w-full"
+        style={frame}
+      />
+      <figcaption className="mt-3 flex gap-3 font-mono text-[12px]" style={{ color: "var(--faint)" }}>
+        <span className="tabular-nums" style={{ color: "var(--accent)" }}>
+          fig. {num(number)}
+        </span>
+        {caption && <span>{caption}</span>}
+      </figcaption>
+    </figure>
+  );
+}
+
+function Section({ index, section, figures, title }: {
+  index: number;
+  section: CaseSection;
+  figures: Omit<FigureProps, "title">[];
+  title: string;
+}) {
+  return (
+    <section className="mt-16 pt-8" style={{ borderTop: "1px solid var(--hairline)" }}>
+      <div className="flex items-baseline gap-3">
+        <span className="w-[22px] shrink-0 font-mono text-[12px] tabular-nums" style={{ color: "var(--accent)" }}>
+          {num(index)}
+        </span>
+        <h2 className="text-[24px] leading-[1.2]" style={{ fontWeight: 400, letterSpacing: "-0.02em" }}>
+          {section.title}
+        </h2>
+      </div>
+
+      <div className="mt-5 flex flex-col gap-5">
+        {section.body.map((paragraph, i) => (
+          <p key={i} className="text-[15.5px] leading-[1.7]" style={{ color: "var(--prose)" }}>
+            {paragraph}
+          </p>
+        ))}
+      </div>
+
+      {section.quotes && (
+        <div className="mt-8 flex flex-col gap-4">
+          {section.quotes.map((quote, i) => (
+            <blockquote
+              key={i}
+              className="pl-5 text-[20px] italic leading-[1.45]"
+              style={{ borderLeft: "2px solid var(--accent)", color: "var(--ink)" }}
+            >
+              “{quote}”
+            </blockquote>
+          ))}
+        </div>
+      )}
+
+      {figures.length > 0 && (
+        <div className={section.pair ? "mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2" : "mt-10 flex flex-col gap-12"}>
+          {figures.map((f) => (
+            <Figure key={f.name} {...f} title={title} />
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
 function ProjectBody({ project, onClose }: { project: DesignProject; onClose: () => void }) {
   // Keep the original entry's state when stepping, so closing still knows whether to go back.
   const { state } = useLocation();
   const images = projectImages(project.slug);
-  const index = designProjects.indexOf(project);
-  const prev = designProjects[index - 1];
-  const next = designProjects[index + 1];
+  const index = visibleProjects.indexOf(project);
+  const prev = visibleProjects[index - 1];
+  const next = visibleProjects[index + 1];
+
+  // Figures are numbered in reading order: section media first, then the rest.
+  const sectionNames = (project.sections ?? []).flatMap((sec) => sec.media ?? []);
+  const rest = images.filter((img) => !sectionNames.includes(img.name));
+  const order = [...sectionNames, ...rest.map((img) => img.name)];
+  const figure = (name: string) => ({
+    media: images.find((img) => img.name === name),
+    name,
+    number: order.indexOf(name),
+    caption: project.captions?.[name],
+  });
 
   return (
     <div tabIndex={-1} autoFocus className="px-6 pb-12 outline-none sm:px-12">
@@ -226,7 +330,7 @@ function ProjectBody({ project, onClose }: { project: DesignProject; onClose: ()
         style={{ background: "var(--bg)" }}
       >
         <span className="font-mono text-[12px] tabular-nums" style={{ color: "var(--faint)" }}>
-          <span style={{ color: "var(--accent)" }}>{num(index)}</span> / {num(designProjects.length - 1)}
+          <span style={{ color: "var(--accent)" }}>{num(index)}</span> / {num(visibleProjects.length - 1)}
         </span>
         <button
           type="button"
@@ -277,33 +381,22 @@ function ProjectBody({ project, onClose }: { project: DesignProject; onClose: ()
         ))}
       </div>
 
-      {images.length === 0 ? (
+      {project.sections?.map((section, i) => (
+        <Section key={section.title} index={i} section={section} figures={(section.media ?? []).map(figure)} title={project.title} />
+      ))}
+
+      {images.length === 0 && !project.sections ? (
         <p className="mt-10 font-mono text-[13px]" style={{ color: "var(--faint)" }}>
           {`// no images yet — add them to src/assets/projects/${project.slug}/`}
         </p>
       ) : (
-        <div className="mt-12 flex flex-col gap-12">
-          {images.map((img, i) => {
-            const caption = project.captions?.[img.name];
-            return (
-              <figure key={img.src}>
-                <Media
-                  media={img}
-                  alt={caption ?? `${project.title} ${num(i)}`}
-                  eager={i === 0}
-                  className="block h-auto w-full"
-                  style={frame}
-                />
-                <figcaption className="mt-3 flex gap-3 font-mono text-[12px]" style={{ color: "var(--faint)" }}>
-                  <span className="tabular-nums" style={{ color: "var(--accent)" }}>
-                    fig. {num(i)}
-                  </span>
-                  {caption && <span>{caption}</span>}
-                </figcaption>
-              </figure>
-            );
-          })}
-        </div>
+        rest.length > 0 && (
+          <div className="mt-12 flex flex-col gap-12">
+            {rest.map((img) => (
+              <Figure key={img.src} {...figure(img.name)} title={project.title} />
+            ))}
+          </div>
+        )
       )}
 
       {(prev || next) && (
