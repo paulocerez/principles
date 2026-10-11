@@ -66,7 +66,7 @@ export function Projects() {
         Projects
       </h1>
       <p className="mt-4 text-[15.5px] leading-[1.7]" style={{ color: "var(--muted)" }}>
-        Selected design work.
+        Selected design work. I focus on B2B software, especially dashboards.
       </p>
 
       <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2">
