@@ -63,6 +63,9 @@ export const designProjects: DesignProject[] = [
       "The hardest problem was turning a vague description into a precise search. I designed a flow where Ponto shows how it understood the request as editable criteria, so users can correct it before any candidates are ranked.",
       "We ran pilots with 10 startups and earned our first revenue. Talking to those hiring managers taught me a lot about what teams will actually pay for, and those lessons led me to my next company, Vetpal.",
     ],
+    captions: {
+      "01": "Demo: describing the role in a guided, step-by-step flow",
+    },
   },
 ];
 
