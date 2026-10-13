@@ -153,21 +153,21 @@ export const designProjects: DesignProject[] = [
     slug: "dirigent",
     title: "Dirigent",
     tagline: "The advisory bench startups can’t afford yet.",
-    year: "2026",
-    roles: ["Founder", "Brand & Product Design", "Frontend Development"],
+    year: "2026 – Present",
+    roles: ["Founder", "Product Design", "Engineering"],
     tools: ["Figma", "Next.js", "TypeScript", "Tailwind", "Motion"],
     url: "https://www.usedirigent.com/",
     body: [
       "Dirigent brings senior operators into early-stage startups for scoped pieces of work, like a first senior hire, a launch post, a landing page or a pitch deck. A founder raises a need in Slack, Dirigent turns it into a brief with a clear deliverable, timebox and fee, and a matched advisor takes it or passes. The founder keeps every decision.",
-      "I founded Dirigent in 2026 and designed the brand and both landing pages, one telling the story to founders and one to advisors, and built them myself in Next.js.",
-      "The challenge was making an abstract service feel tangible. I used paper as the metaphor: requests become briefs, advisors get a desk of them, and taking one stamps it “Yours”. Instead of screenshots, both heroes are small working simulations. On the advisor page you can take or pass on briefs as they land, and two scripted cursors, a founder and a recruiter, show what working in one shared thread feels like.",
-      "I also designed for respect. Motion pauses under the pointer and switches off for anyone who prefers reduced motion, forms keep what you typed after an error, there are no analytics, and the copy is honest about where we are: “We’re in pilot, so honestly: not a full desk yet.”",
+      "I founded Dirigent in 2026 and designed and built the whole product: how founders raise a request and get a brief inside Slack, how advisors are matched and receive the work on WhatsApp, email or Slack, and how outcomes are logged so good work earns the next request. I also created the brand and the website.",
+      "The core design problem was trust on both sides. Founders need to know exactly what they get before anything starts, so every brief fixes the deliverable, quality bar, timebox and fee up front. Advisors need work that actually fits, so each brief arrives with the context already written, and passing on it carries no penalty. Everyone works in one shared thread.",
+      "The brand makes an abstract service feel tangible. I used paper as the metaphor: requests become briefs, advisors get a desk of them, and taking one stamps it “Yours”. On the website, both heroes are small working simulations of the product instead of screenshots, and motion pauses under the pointer and switches off for anyone who prefers reduced motion.",
     ],
     sections: [
       {
         title: "The product",
         body: [],
-        media: ["01", "02", "03", "04", "05"],
+        media: ["01", "02", "03", "04"],
       },
     ],
     captions: {
@@ -175,7 +175,6 @@ export const designProjects: DesignProject[] = [
       "02": "Advisor hero: briefs land on a desk and can be taken or passed, a working simulation instead of a screenshot",
       "03": "Real advisors from the network up front, because trust is the first question a founder asks",
       "04": "How partnering works in four steps, each ending in a one-line promise like “Your calendar stays yours”",
-      "05": "The pilot form asks for three things and says plainly what the details are used for",
     },
   },
   {
