@@ -179,8 +179,14 @@ export function Portfolio() {
 
         <div className="mt-16 flex max-w-[60ch] flex-col gap-5 text-[17px] leading-[1.65] sm:mt-24" style={{ color: "var(--muted)" }}>
           <p>
-            What I care about most is making complex products feel seamless and intuitive, so users understand a
-            screen at a glance and can get their work done without thinking about the interface.
+            What I care about most is making complex products feel simple and intuitive, so people understand a
+            screen at a glance and can get their work done without thinking about the interface. That means
+            software that works well right out of the box, with room to customize it for the people who want more.
+          </p>
+          <p>
+            Most of what I’ve built is data-heavy: dashboards for settlements, deliveries and calls. In all of it, my
+            focus has been the same: software that drives real business outcomes and gives teams a clear picture of
+            where things stand.
           </p>
           <p>
             Currently co-founder & CTO of{" "}
