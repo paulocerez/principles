@@ -25,6 +25,7 @@ export interface DesignProject {
   url?: string;
   sections?: CaseSection[];
   stats?: { value: string; label: string }[]; // key numbers, shown on the card and in the dialog
+  cover?: { color: string; logo?: string; label?: string }; // typographic card cover when there are no screenshots
   draft?: boolean; // shown in `npm run dev`, hidden on the live site
 }
 
@@ -199,6 +200,38 @@ export const designProjects: DesignProject[] = [
     captions: {
       "01": "Demo: a plain-language description becomes editable search factors, then ranked candidates",
     },
+  },
+  {
+    slug: "ivy-merchant-dashboard",
+    title: "Ivy Merchant Dashboard",
+    tagline: "Settlement tracking for enterprise merchants on Ivy’s payment network.",
+    year: "2024",
+    roles: ["Product Design", "Frontend Engineering"],
+    tools: ["TypeScript", "React"],
+    url: "https://augustus.com/",
+    stats: [{ value: "6–7 figures", label: "in settlements tracked per merchant" }],
+    cover: { color: "#1f3dff", label: "Ivy, now Augustus" },
+    body: [
+      "Ivy, now Augustus, is a Berlin fintech that lets merchants accept instant account-to-account payments through open banking, without card networks in between. Founded in 2021, it raised a $20M Series A in 2023 and has since become Augustus, a $1B company building a US clearing bank for the internet era.",
+      "In 2024 I built the Merchant Dashboard, where Ivy’s enterprise merchants tracked their settlements. For large merchants, these payouts ranged from a few hundred thousand to a few million dollars, so the dashboard was what finance teams relied on to see what had been paid out, what was still pending and what had arrived in their accounts.",
+      "With that much money involved, trust was the main design goal. Every number had to be unambiguous and traceable: a clear status for each settlement, totals that match the underlying transactions, and details a finance team can check line by line.",
+    ],
+  },
+  {
+    slug: "lanch-partner-dashboard",
+    title: "LANCH Partner Dashboard",
+    tagline: "The operations hub for the restaurants behind LANCH’s delivery brands.",
+    year: "",
+    roles: ["Product Design", "Frontend Engineering"],
+    tools: ["TypeScript", "React"],
+    url: "https://lanch.com/",
+    stats: [{ value: "80+", label: "partner businesses" }],
+    cover: { color: "#231f42", logo: "/lanch-wordmark.png" },
+    body: [
+      "LANCH builds delivery food brands with Germany’s biggest creators, like Happy Slice with Knossi and Trymacs, and Loco Chicken with Luciano. Instead of running its own kitchens, LANCH cooks in partner restaurants that act as ghost kitchens, a network that has grown to around 350 delivery locations. Happy Slice alone sold more than 30,000 pizzas in its launch weekend, and LANCH has since raised a €26M Series A.",
+      "I built the Partner Dashboard for the restaurants in that network. More than 80 partner businesses used it as the foundation for running LANCH brands in their kitchens: tracking deliveries and order volume, and connecting LANCH orders to their own POS systems.",
+      "The users were restaurant operators, not office workers. The dashboard had to answer the essentials at a glance, like how many orders came in and what was delivered, and fit into how a busy kitchen already works instead of adding one more screen to manage.",
+    ],
   },
 ];
 

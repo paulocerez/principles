@@ -61,6 +61,31 @@ function ProjectCard({ project, index }: { project: DesignProject; index: number
             eager={index < 2}
             className="h-full w-full object-cover object-left-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
           />
+        ) : project.cover ? (
+          // No screenshots: a typographic cover with the logo and the key number.
+          <div
+            className="flex h-full w-full flex-col justify-between p-7 text-white transition-transform duration-500 ease-out group-hover:scale-[1.02] sm:p-9"
+            style={{ background: project.cover.color }}
+          >
+            {project.cover.logo ? (
+              <img
+                src={project.cover.logo}
+                alt=""
+                className="h-7 w-auto self-start object-contain"
+                style={{ filter: "brightness(0) invert(1)" }}
+              />
+            ) : (
+              <span className="font-mono text-[13px] opacity-80">{project.cover.label}</span>
+            )}
+            {project.stats?.[0] && (
+              <div>
+                <div className="text-[clamp(40px,5vw,60px)] leading-none" style={{ fontWeight: 500, letterSpacing: "-0.04em" }}>
+                  {project.stats[0].value}
+                </div>
+                <div className="mt-3 text-[15px] opacity-75">{project.stats[0].label}</div>
+              </div>
+            )}
+          </div>
         ) : (
           <div className="flex h-full w-full items-center justify-center font-mono text-[12px]" style={{ color: "var(--faint)" }}>
             {project.title}
@@ -82,7 +107,7 @@ function ProjectCard({ project, index }: { project: DesignProject; index: number
       <p className="mt-1 pl-[34px] text-[14.5px] leading-[1.6]" style={{ color: "var(--muted)" }}>
         {project.tagline}
       </p>
-      {project.stats && (
+      {project.stats && cover && (
         <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 pl-[34px] text-[14px]">
           {project.stats.map((stat) => (
             <span key={stat.label} style={{ color: "var(--muted)" }}>
@@ -529,7 +554,7 @@ function ProjectBody({ project, onClose }: { project: DesignProject; onClose: ()
         className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 py-6 sm:grid-cols-4"
         style={{ borderTop: "1px solid var(--hairline)", borderBottom: "1px solid var(--hairline)" }}
       >
-        <Meta label="Year">{project.year}</Meta>
+        {project.year && <Meta label="Year">{project.year}</Meta>}
         <Meta label="Role">{project.roles.join(", ")}</Meta>
         <Meta label="Tools">{project.tools.join(", ")}</Meta>
         {project.url && (
@@ -561,7 +586,7 @@ function ProjectBody({ project, onClose }: { project: DesignProject; onClose: ()
       ))}
 
       {images.length === 0 && !project.sections ? (
-        <p className="mt-10 font-mono text-[13px]" style={{ color: "var(--faint)" }}>
+        import.meta.env.MODE === "development" && <p className="mt-10 font-mono text-[13px]" style={{ color: "var(--faint)" }}>
           {`// no images yet — add them to src/assets/projects/${project.slug}/`}
         </p>
       ) : (
