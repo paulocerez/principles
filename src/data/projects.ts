@@ -24,6 +24,7 @@ export interface DesignProject {
   captions?: Record<string, string>;
   url?: string;
   sections?: CaseSection[];
+  stats?: { value: string; label: string }[]; // key numbers, shown on the card and in the dialog
   draft?: boolean; // shown in `npm run dev`, hidden on the live site
 }
 
@@ -118,6 +119,10 @@ export const designProjects: DesignProject[] = [
     roles: ["Product Development", "Engineering", "Design"],
     tools: ["Figma", "TypeScript", "React", "PostHog", "Pen & paper"],
     url: "https://vetpal.de/",
+    stats: [
+      { value: "120", label: "practices" },
+      { value: "€600k+", label: "annual recurring revenue" },
+    ],
     body: [
       "Vetpal is an AI communication platform for veterinary clinics. Its voice assistant, Emma, answers calls around the clock, books, moves and cancels appointments, and routes emergencies to the right person. Practice teams can focus on the animals in front of them instead of a phone that never stops ringing.",
       "I co-founded Vetpal in 2025 and lead product development, engineering and design. I built the entire product on my own, from the first sketches to the version practices use every day. User experience is at the centre of my daily work.",
@@ -128,7 +133,7 @@ export const designProjects: DesignProject[] = [
       {
         title: "The product",
         body: [],
-        media: ["01", "02", "03", "04", "05"],
+        media: ["00-website", "01", "02", "03", "04", "05"],
       },
       {
         title: "Details",
@@ -138,6 +143,7 @@ export const designProjects: DesignProject[] = [
       },
     ],
     captions: {
+      "00-website": "The website: Emma introduced as a character, because practices hire a receptionist, not software",
       "01": "Dashboard: key numbers first, so a practice owner sees how Emma is doing within seconds",
       "02": "Inbox: every channel in one list, so staff don't have to jump between phone, WhatsApp and email",
       "03": "Task editor: call flows as plain-language steps, because that's how staff already describe a call",

@@ -82,6 +82,18 @@ function ProjectCard({ project, index }: { project: DesignProject; index: number
       <p className="mt-1 pl-[34px] text-[14.5px] leading-[1.6]" style={{ color: "var(--muted)" }}>
         {project.tagline}
       </p>
+      {project.stats && (
+        <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 pl-[34px] text-[14px]">
+          {project.stats.map((stat) => (
+            <span key={stat.label} style={{ color: "var(--muted)" }}>
+              <span className="tabular-nums" style={{ fontWeight: 500, color: "var(--ink)" }}>
+                {stat.value}
+              </span>{" "}
+              {stat.label}
+            </span>
+          ))}
+        </div>
+      )}
     </Link>
   );
 }
@@ -497,6 +509,21 @@ function ProjectBody({ project, onClose }: { project: DesignProject; onClose: ()
       <p className="mt-3 text-[17px] leading-[1.5]" style={{ color: "var(--muted)" }}>
         {project.tagline}
       </p>
+
+      {project.stats && (
+        <div className="mt-8 flex flex-wrap gap-x-12 gap-y-4">
+          {project.stats.map((stat) => (
+            <div key={stat.label}>
+              <div className="text-[34px] leading-none tabular-nums" style={{ fontWeight: 500, letterSpacing: "-0.03em" }}>
+                {stat.value}
+              </div>
+              <div className="mt-2 text-[14px]" style={{ color: "var(--muted)" }}>
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       <dl
         className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 py-6 sm:grid-cols-4"
