@@ -221,7 +221,7 @@ export const designProjects: DesignProject[] = [
     slug: "lanch-partner-dashboard",
     title: "LANCH Partner Dashboard",
     tagline: "The operations hub for the restaurants behind LANCH’s delivery brands.",
-    year: "",
+    year: "2023",
     roles: ["Product Design", "Frontend Engineering"],
     tools: ["TypeScript", "React"],
     url: "https://lanch.com/",
@@ -306,5 +306,13 @@ export const experience: Experience[] = [
     logo: "/augustus.png",
     description:
       "Software engineering. I built dashboards and backend services for e-commerce and crypto companies, alongside an exceptionally strong engineering team.",
+  },
+  {
+    name: "LANCH",
+    years: "2023",
+    url: "https://lanch.com/",
+    logo: "/lanch.png",
+    description:
+      "Product engineering. I built the Partner Dashboard that 80+ partner restaurants used to run LANCH’s delivery brands, from order tracking to POS integration.",
   },
 ];
