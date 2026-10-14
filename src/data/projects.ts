@@ -26,6 +26,7 @@ export interface DesignProject {
   sections?: CaseSection[];
   stats?: { value: string; label: string }[]; // key numbers, shown on the card and in the dialog
   cover?: { color: string; logo?: string; label?: string }; // typographic card cover when there are no screenshots
+  usage?: string; // shown as "Usage" in the dialog's details row
   interactive?: "places"; // a live, interactive piece instead of screenshots
   draft?: boolean; // shown in `npm run dev`, hidden on the live site
 }
@@ -256,6 +257,7 @@ export const designProjects: DesignProject[] = [
     roles: ["Product Design", "Frontend Engineering"],
     tools: ["TypeScript", "React"],
     url: "https://augustus.com/",
+    usage: "Enterprise merchants, $100k to $1M+ in settlements",
     stats: [{ value: "6–7 figures", label: "in settlements tracked per merchant" }],
     cover: { color: "#1f3dff", label: "Ivy, now Augustus" },
     body: [
@@ -272,6 +274,7 @@ export const designProjects: DesignProject[] = [
     roles: ["Product Design", "Frontend Engineering"],
     tools: ["TypeScript", "React"],
     url: "https://lanch.com/",
+    usage: "80+ partner businesses, ~350 delivery locations",
     stats: [{ value: "80+", label: "partner businesses" }],
     cover: { color: "#231f42", logo: "/lanch-wordmark.png" },
     body: [

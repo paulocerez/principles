@@ -564,12 +564,13 @@ function ProjectBody({ project, onClose }: { project: DesignProject; onClose: ()
       )}
 
       <dl
-        className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 py-6 sm:grid-cols-4"
+        className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 py-6 sm:grid-flow-col sm:auto-cols-fr sm:grid-cols-none"
         style={{ borderTop: "1px solid var(--hairline)", borderBottom: "1px solid var(--hairline)" }}
       >
         {project.year && <Meta label="Year">{project.year}</Meta>}
         <Meta label="Role">{project.roles.join(", ")}</Meta>
         <Meta label="Tools">{project.tools.join(", ")}</Meta>
+        {project.usage && <Meta label="Usage">{project.usage}</Meta>}
         {project.url && (
           <Meta label="Link">
             <a
