@@ -37,6 +37,7 @@ export interface CaseSection {
   quotes?: string[];
   media?: string[]; // filenames without extension, from the project folder
   pair?: boolean; // show media side by side, e.g. before/after
+  phones?: boolean; // tall mobile screens in a three-column grid
 }
 
 export interface ProjectImage {
@@ -200,6 +201,61 @@ export const designProjects: DesignProject[] = [
       "w1-hero": "Startup hero: a fanned stack of briefs, each matched to an advisor, so the idea lands before anyone reads a word",
       "w2-desk": "Advisor hero: briefs land on a desk and can be taken or passed, a working simulation instead of a screenshot",
       "w3-advisors": "Real advisors from the network up front, because trust is the first question a founder asks",
+    },
+  },
+  {
+    slug: "neighbourfood",
+    title: "neighbourFood",
+    tagline: "Home-cooked meals, shared between neighbours.",
+    year: "2022",
+    roles: ["Concept", "UX/UI Design"],
+    tools: ["Figma", "Pen & paper"],
+    body: [
+      "neighbourFood is a concept for a marketplace where neighbours share home-cooked meals. Anyone can be a cook and a guest at the same time: a retiree who loves to bake offers an extra portion of what she cooks anyway, and a busy student nearby picks it up in his own container instead of ordering delivery.",
+      "I designed it in 2022, when I applied to study at CODE University in Berlin, and wrote an essay alongside the prototype. It was my first product design project, and the questions it raised still shape how I work.",
+    ],
+    sections: [
+      {
+        title: "The idea",
+        body: [
+          "Two groups kept coming up. Older people living on a small pension, who have cooking skills but little income on the side, and students who don’t have the time to cook but still want a proper meal. Both often live alone, and both had felt the isolation of the pandemic.",
+          "Sharing food connects them. It adds a small income for one side, a fresh and affordable meal for the other, and a reason to meet the people next door. Because meals are picked up on foot or by bike, there’s no delivery service, no plastic packaging and no extra emissions.",
+        ],
+        media: ["00-cover"],
+      },
+      {
+        title: "Two people",
+        body: [
+          "I designed around two personas. Gertrud, 65, a retired nursery teacher living on a €900 pension, who loves baking cakes and making salads. Mark, 20, a student in the middle of a project phase, who wants a fresh, high-protein meal and knowing exactly what’s in it.",
+          "Mark searches the app, finds Gertrud 800 metres away and cycles over to pick up a tuna salad. He sees on her profile that she bakes, and asks her for his birthday cake the next week. The goal was for exchanges like this to turn into regular ones, and maybe friendships.",
+        ],
+        quotes: ["Is there any better way to get in touch with each other again than food?"],
+      },
+      {
+        title: "Designing for everyone",
+        body: [
+          "Many cooks would be older and not used to apps, so the interface had to be simple above all. The home screen asks one question, “What would you like to do?”, and offers four large actions: post a meal, discover, edit your profile and get help.",
+          "Discovery happens on a map of the neighbourhood, because proximity is what matters most. Every profile shows the distance, a rating and whether the person is verified, so trust is visible at a glance. Customer service sits on the home screen rather than buried in a menu, and gives direct phone numbers for questions about taxes, safety and registering a small business.",
+        ],
+      },
+      {
+        title: "The prototype",
+        body: ["The prototype is in German, since it was designed for neighbourhoods in Berlin and Potsdam."],
+        media: ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9"],
+        phones: true,
+      },
+    ],
+    captions: {
+      "00-cover": "From opening the app to finding a cook nearby, in three screens",
+      s1: "Splash screen: “We love to share.”",
+      s2: "Home: one question and four large actions, with nearby cooks on the map",
+      s3: "Discover: filter by category, day, distance and price, then pick a cook on the map",
+      s4: "Results: distance, rating and verification visible before anything else",
+      s5: "A cook’s profile, with her bio, current offers and today’s meal",
+      s6: "Posting a meal, an early wireframe with optional nutrition details",
+      s7: "Menu: orders, messages and how neighbourFood works",
+      s8: "Personal details, with ID verification and payout settings",
+      s9: "Customer service, with direct phone numbers for every topic",
     },
   },
   {

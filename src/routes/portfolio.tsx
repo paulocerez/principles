@@ -492,7 +492,15 @@ function Section({ index, section, figures, title }: {
       )}
 
       {figures.length > 0 && (
-        <div className={section.pair ? "mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2" : "mt-10 flex flex-col gap-12"}>
+        <div
+          className={
+            section.phones
+              ? "mt-10 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3"
+              : section.pair
+                ? "mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2"
+                : "mt-10 flex flex-col gap-12"
+          }
+        >
           {figures.map((f) => (
             <Figure key={f.name} {...f} fit={section.pair} title={title} />
           ))}
