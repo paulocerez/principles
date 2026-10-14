@@ -257,7 +257,7 @@ export const designProjects: DesignProject[] = [
     roles: ["Product Design", "Frontend Engineering"],
     tools: ["TypeScript", "React"],
     url: "https://augustus.com/",
-    usage: "Enterprise merchants, $100k to $1M+ in settlements",
+    usage: "Enterprise merchants, $3M in settlements",
     stats: [{ value: "6–7 figures", label: "in settlements tracked per merchant" }],
     cover: { color: "#1f3dff", label: "Ivy, now Augustus" },
     body: [
