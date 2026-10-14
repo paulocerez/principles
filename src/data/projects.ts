@@ -210,10 +210,26 @@ export const designProjects: DesignProject[] = [
     roles: ["Concept", "Visual Design", "Development"],
     tools: ["TypeScript", "React", "D3"],
     interactive: "places",
-    draft: true,
     body: [
       "A small personal piece about where I’ve been. Every city I’ve visited is drawn as an arc from Berlin, where I live, on a world map made of the same dots as the background of this page.",
       "Most of my work is dashboards that turn data into decisions. Places uses the same skills for something personal: it’s meant to be explored rather than read. Switch between Europe and the world, hover a city to see when I was there, or hover a country to light up its cities on the map.",
+    ],
+    sections: [
+      {
+        title: "Design choices",
+        body: [
+          "The map is made of dots on purpose, so it feels like part of this page rather than an embedded widget. It opens on Europe, where most of the trips are, and the world is one click away.",
+          "Every arc starts in Berlin because that’s where every trip starts for me. Cities I keep returning to get bigger dots, so places like Barcelona stand out without needing a legend.",
+        ],
+      },
+      {
+        title: "How it’s built",
+        body: [
+          "The data is the same list that powers the countries page of this site, so adding a trip there updates the map automatically. Each city has a coordinate, and the number of visits sets the size of its dot.",
+          "The map is drawn with D3 and Natural Earth data. To get the dotted look, the land is sampled into a grid: for every point, I check whether it falls on land. That takes over a minute, so it runs once ahead of time and the result ships as a small data file.",
+          "The arcs are curves from Berlin to each city, bent upwards in proportion to their distance, and they draw themselves in one after another. For visitors who prefer reduced motion they simply appear, and the whole piece only loads when you open it.",
+        ],
+      },
     ],
   },
   {
