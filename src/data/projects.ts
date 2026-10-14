@@ -26,6 +26,7 @@ export interface DesignProject {
   sections?: CaseSection[];
   stats?: { value: string; label: string }[]; // key numbers, shown on the card and in the dialog
   cover?: { color: string; logo?: string; label?: string }; // typographic card cover when there are no screenshots
+  interactive?: "places"; // a live, interactive piece instead of screenshots
   draft?: boolean; // shown in `npm run dev`, hidden on the live site
 }
 
@@ -200,6 +201,20 @@ export const designProjects: DesignProject[] = [
     captions: {
       "01": "Demo: a plain-language description becomes editable search factors, then ranked candidates",
     },
+  },
+  {
+    slug: "places",
+    title: "Places",
+    tagline: "Every place I’ve been, drawn from Berlin.",
+    year: "2026",
+    roles: ["Concept", "Visual Design", "Development"],
+    tools: ["TypeScript", "React", "D3"],
+    interactive: "places",
+    draft: true,
+    body: [
+      "A small personal piece about where I’ve been. Every city I’ve visited is drawn as an arc from Berlin, where I live, on a world map made of the same dots as the background of this page.",
+      "Most of my work is dashboards that turn data into decisions. Places uses the same skills for something personal: it’s meant to be explored rather than read. Switch between Europe and the world, hover a city to see when I was there, or hover a country to light up its cities on the map.",
+    ],
   },
   {
     slug: "ivy-merchant-dashboard",

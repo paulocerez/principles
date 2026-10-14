@@ -1,4 +1,4 @@
-import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "lucide-react";
 import {
@@ -11,6 +11,9 @@ import {
   type DesignProject,
   type ProjectImage,
 } from "@/data/projects";
+
+const Places = lazy(() => import("@/components/places"));
+const PlacesCover = lazy(() => import("@/components/places").then((m) => ({ default: m.PlacesCover })));
 
 const num = (i: number) => String(i + 1).padStart(2, "0");
 
@@ -54,7 +57,11 @@ function ProjectCard({ project, index }: { project: DesignProject; index: number
   return (
     <Link to={`?project=${project.slug}`} state={OPENED} className="group flex flex-col">
       <div className="relative aspect-[16/10] overflow-hidden" style={frame}>
-        {cover ? (
+        {project.interactive === "places" ? (
+          <Suspense fallback={null}>
+            <PlacesCover />
+          </Suspense>
+        ) : cover ? (
           <Media
             media={cover}
             alt={project.title}
@@ -587,11 +594,17 @@ function ProjectBody({ project, onClose }: { project: DesignProject; onClose: ()
         ))}
       </div>
 
+      {project.interactive === "places" && (
+        <Suspense fallback={<div className="mt-12 h-[400px]" />}>
+          <Places />
+        </Suspense>
+      )}
+
       {project.sections?.map((section, i) => (
         <Section key={section.title} index={i} section={section} figures={(section.media ?? []).map(figure)} title={project.title} />
       ))}
 
-      {images.length === 0 && !project.sections ? (
+      {images.length === 0 && !project.sections && !project.interactive ? (
         import.meta.env.MODE === "development" && <p className="mt-10 font-mono text-[13px]" style={{ color: "var(--faint)" }}>
           {`// no images yet — add them to src/assets/projects/${project.slug}/`}
         </p>
