@@ -165,9 +165,13 @@ export const designProjects: DesignProject[] = [
     roles: ["Founder", "Product Design", "Engineering"],
     tools: ["Figma", "Next.js", "TypeScript", "Tailwind", "Motion"],
     url: "https://www.usedirigent.com/",
+    stats: [
+      { value: "30", label: "advisors onboarded" },
+      { value: "10", label: "startups in pilot" },
+    ],
     body: [
       "Dirigent brings senior operators into early-stage startups for scoped pieces of work, like a first senior hire, a launch post, a landing page or a pitch deck. Advisors package what they know into modules with a fixed scope, timebox and price, and founders request exactly the module they need. The founder keeps every decision.",
-      "I founded Dirigent in 2026 and designed and built the whole product, from the brand and website to the app founders and advisors work in every day.",
+      "I founded Dirigent in 2026 and designed and built the whole product, from the brand and website to the app founders and advisors work in every day. Today, 30 advisors are onboarded and 10 startups are using Dirigent in our pilot.",
       "The core design problem was trust on both sides. Founders need to know exactly what they get before anything starts, so every module states its deliverable, timebox and fee up front, and every request is accepted or declined by the advisor. Once work starts, everything about it lives in one place: the modules, the calls and the conversation.",
       "I kept the app calm and quiet on purpose. Founders juggle a lot, so the dashboard opens with the few things that are waiting on them, and everything else stays one click away.",
     ],
