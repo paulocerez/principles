@@ -25,6 +25,11 @@ export const cityCoords: Record<string, [number, number]> = {
   "San Francisco": [-122.42, 37.77],
   Thessaloniki: [22.94, 40.64],
   Prague: [14.42, 50.08],
+  Castellón: [-0.04, 39.99],
+  Valencia: [-0.38, 39.47],
+  Kitzbühel: [12.39, 47.45],
+  Havana: [-82.37, 23.11],
+  "Santiago de Cuba": [-75.82, 20.02],
 };
 
 export const continentOf: Record<string, string> = {
