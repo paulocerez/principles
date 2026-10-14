@@ -209,7 +209,7 @@ export const designProjects: DesignProject[] = [
     tagline: "Home-cooked meals, shared between neighbours.",
     year: "2022",
     roles: ["Concept", "UX/UI Design"],
-    tools: ["Figma", "Pen & paper"],
+    tools: ["Adobe XD", "Pen & paper"],
     body: [
       "neighbourFood is a concept for a marketplace where neighbours share home-cooked meals. Anyone can be a cook and a guest at the same time: a retiree who loves to bake offers an extra portion of what she cooks anyway, and a busy student nearby picks it up in his own container instead of ordering delivery.",
       "I designed it in 2022, when I applied to study at CODE University in Berlin, and wrote an essay alongside the prototype. It was my first product design project, and the questions it raised still shape how I work.",
