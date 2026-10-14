@@ -258,7 +258,7 @@ export const designProjects: DesignProject[] = [
     tools: ["TypeScript", "React"],
     url: "https://augustus.com/",
     usage: "Enterprise merchants, $3M in settlements",
-    stats: [{ value: "6–7 figures", label: "in settlements tracked per merchant" }],
+    stats: [{ value: "$3M", label: "in settlements" }],
     cover: { color: "#1f3dff", label: "Ivy, now Augustus" },
     body: [
       "Ivy, now Augustus, is a Berlin fintech that lets merchants accept instant account-to-account payments through open banking, without card networks in between. Founded in 2021, it raised a $20M Series A in 2023 and has since become Augustus, a $1B company building a US clearing bank for the internet era.",

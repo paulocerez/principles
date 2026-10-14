@@ -114,7 +114,7 @@ function ProjectCard({ project, index }: { project: DesignProject; index: number
       <p className="mt-1 pl-[34px] text-[14.5px] leading-[1.6]" style={{ color: "var(--muted)" }}>
         {project.tagline}
       </p>
-      {project.stats && cover && (
+      {project.stats && (
         <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 pl-[34px] text-[14px]">
           {project.stats.map((stat) => (
             <span key={stat.label} style={{ color: "var(--muted)" }}>
